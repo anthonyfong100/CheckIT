@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text } from 'react-redux';
+import React, { Component } from 'react';
+import { View, Text } from 'react-native';
 
 class App extends Component {
   render() {
@@ -9,6 +9,8 @@ class App extends Component {
           we gonna win atos
         </Text>
       </View>
-    )
+    );
   }
 }
+
+export default App;
