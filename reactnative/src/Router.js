@@ -6,10 +6,13 @@ const RouterComponent = () => {
     return (
         <Router>
             <Scene key="root" hideNavBar>
+                
                 <Scene key="auth">
                     // login form/ sign up form
                 </Scene>
+                
                 <Scene key="main">
+                    
                     // shopping list Scene
                     <Scene 
                         key="shoppingList" 
