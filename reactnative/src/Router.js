@@ -1,6 +1,10 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
+import SignUpForm from './scenes/SignUpform.js';
 import ShoppingList from './scenes/ShoppingList';
+import Camera from './scenes/Camera';
+import Fridge from './scenes/Fridge';
+import Recipe from './scenes/Recipe';
 
 const RouterComponent = () => {
     return (
@@ -8,7 +12,12 @@ const RouterComponent = () => {
             <Scene key="root" hideNavBar>
                 
                 <Scene key="auth">
-                    // login form/ sign up form
+                    <Scene 
+                        key="signup"
+                        component={SignUpForm}
+                        title="Please Login"
+                        initial
+                    />
                 </Scene>
                 
                 <Scene key="main">
@@ -16,14 +25,31 @@ const RouterComponent = () => {
                     // shopping list Scene
                     <Scene 
                         key="shoppingList" 
-                        component={ShoppingList} // refers to ShoppingList.js
+                        component={ShoppingList} 
                         title="Shopping List"
                     /> 
                     
+                    // camera scene
+                    <Scene 
+                        key="camera"
+                        component={Camera}
+                        title="Camera"
+                    /> 
+
+                    // fridge scene (this will be initial scene)
+                    <Scene 
+                        key="fridge"
+                        component={Fridge}
+                        title="My Fridge"
+                        intial
+                    />
                     
-                    <Scene /> // camera scene
-                    <Scene /> // fridge scene (this will be initial scene)
-                    <Scene /> // recipe scene
+                    // recipe scene
+                    <Scene 
+                        key="recipe"
+                        component={Recipe}
+                        title="Recipes"
+                    /> 
                 </Scene>
             </Scene>
         </Router>

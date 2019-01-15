@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import firebase from '@firebase/app';
+import reducers from './reducers';
+import ReduxThunk from 'redux-thunk';
+import Router from './Router';
 
 class App extends Component {
   // initialise firebase app when main app initialises
@@ -17,12 +20,12 @@ class App extends Component {
   }
   
   render() {
+    const store = createStore(reuducers, {}, applyMiddleWare(ReduxThunk))
+
     return (
-      <View>
-        <Text>
-          we gonna win atos
-        </Text>
-      </View>
+        <Provider store={store}>
+          <Router />
+        </Provider>
     );
   }
 }
