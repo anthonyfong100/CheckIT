@@ -21,10 +21,9 @@ class App extends Component {
   }
   
   render() {
-    console.log(ReduxThunk);
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
-    console.log("fell through");
     return (
+        
         <Provider store={store}>
           <Router />
         </Provider>
