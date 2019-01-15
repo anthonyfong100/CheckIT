@@ -2,7 +2,7 @@
 
 import firebase from '@firebase/app';
 import '@firebase/auth';
-import { Actions } from 'react-native -router-flux';
+import { Actions } from 'react-native-router-flux';
 import {
     EMAIL_CHANGED,
     PASSWORD_CHANGED,

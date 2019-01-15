@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Provider } from 'react-redux';
 import firebase from '@firebase/app';
 import reducers from './reducers';
 import ReduxThunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import Router from './Router';
 
 class App extends Component {
@@ -20,8 +21,9 @@ class App extends Component {
   }
   
   render() {
-    const store = createStore(reuducers, {}, applyMiddleWare(ReduxThunk))
-
+    console.log(ReduxThunk);
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    console.log("fell through");
     return (
         <Provider store={store}>
           <Router />
