@@ -32,6 +32,12 @@ const RouterComponent = () => {
                             key="myFridge"
                             component={Fridge}
                             title="My Fridge"
+                            initial
+                        />
+                        <Scene  
+                            key="recipes"
+                            component={Recipe}
+                            titles="Recipes"
                         />
                     </Scene>
                 </Scene>

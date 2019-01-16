@@ -7,5 +7,6 @@ export const LOGIN_USER = 'login_user';
 export const SHOPPING_FOOD_FETCH_SUCCESS = 'shopping_food_fetch_success';
 export const SHOPPING_FOOD_CREATE = 'shopping_food_create';
 
+export const FRIDGE_FOOD_UPDATE = 'fridge_food_update';
 export const FRIDGE_FOOD_CREATE = 'fridge_food_create';
 export const FRIDGE_FOOD_FETCH_SUCCESS = 'fridge_food_fetch_success';
