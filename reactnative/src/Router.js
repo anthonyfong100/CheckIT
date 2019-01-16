@@ -5,6 +5,7 @@ import ShoppingList from './scenes/ShoppingList';
 import Camera from './scenes/Camera';
 import Fridge from './scenes/Fridge';
 import Recipe from './scenes/Recipe';
+import CameraScreen from './common/CameraScreen'
 
 const RouterComponent = () => {
     return (
@@ -32,12 +33,17 @@ const RouterComponent = () => {
                             key="myFridge"
                             component={Fridge}
                             title="My Fridge"
-                            initial
                         />
                         <Scene  
                             key="recipes"
                             component={Recipe}
                             titles="Recipes"
+                        />
+                        <Scene
+                            key="camera"
+                            hideNavBar
+                            component={CameraScreen}
+                            initial
                         />
                     </Scene>
                 </Scene>

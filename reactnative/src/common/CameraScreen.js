@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 import { RNCamera } from 'react-native-camera';
-import cameraCaptureButton from '../assets/cameraCaptureButton.png'
-import backButton from '../assets/backButton.png'
+import cameraCaptureButton from '../../CheckIt assets/cameraCaptureButton.png'
+import backButton from '../../CheckIt assets/backButton.png'
 
 
 export default class CameraScreen extends Component {
