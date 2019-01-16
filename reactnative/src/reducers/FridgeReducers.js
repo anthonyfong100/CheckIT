@@ -1,6 +1,6 @@
 import {
     FRIDGE_FOOD_FETCH_SUCCESS
-} from '../actions.types';
+} from '../actions/types';
 
 const INITIAL_STATE = {};
 
