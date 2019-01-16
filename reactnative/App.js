@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import firebase from '@firebase/app';
-import reducers from './reducers';
+import reducers from './src/reducers';
 import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
-import Router from './Router';
+import Router from './src/Router';
 
 class App extends Component {
   // initialise firebase app when main app initialises
