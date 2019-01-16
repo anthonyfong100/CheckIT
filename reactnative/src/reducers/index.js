@@ -1,7 +1,11 @@
 // catalogs all reducer actions
 import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
+import ShoppingReducer from './ShoppingReducer';
+import FridgeReducers from './FridgeReducers';
 
 export default combineReducers({
-    auth:AuthReducer
+    auth:AuthReducer,
+    shoppingFood:ShoppingReducer,
+    fridgeFood:FridgeReducers
 })

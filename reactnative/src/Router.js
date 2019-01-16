@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, Actions } from 'react-native-router-flux';
 import SignUpForm from './scenes/SignUpForm';
 import ShoppingList from './scenes/ShoppingList';
 import Camera from './scenes/Camera';
@@ -9,7 +9,6 @@ import Recipe from './scenes/Recipe';
 const RouterComponent = () => {
     return (
         <Router>
-            <Scene>
                 <Scene key="root" hideNavBar>
                     <Scene key="auth">
                         <Scene 
@@ -19,8 +18,23 @@ const RouterComponent = () => {
                             initial
                         />
                     </Scene>
+                    <Scene key="main">
+                        <Scene
+                            rightTitle="Add"
+                            onRight={() => Actions.shoppingFoodCreate()}
+                            key="myShoppingList"
+                            component={ShoppingList}
+                            title="My Shopping List"
+                        />
+                        <Scene
+                            rightTitle="Add"
+                            onRight={() => Actions.fridgeFoodCreate()}
+                            key="myFridge"
+                            component={Fridge}
+                            title="My Fridge"
+                        />
+                    </Scene>
                 </Scene>
-            </Scene>
         </Router>
     );
 };

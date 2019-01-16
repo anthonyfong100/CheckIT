@@ -1,6 +1,6 @@
 // render code for signup form
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from '../common';
@@ -23,9 +23,9 @@ class SignUpForm extends Component {
         if(this.props.error) {
             return (
                 <View style={{ backgroundColor: 'white' }}>
-                    <View style={styles.errorTextStyle}>
+                    <Text style={styles.errorTextStyle}>
                         {this.props.error}
-                    </View>
+                    </Text>
                 </View>
             );
         }
@@ -66,7 +66,7 @@ class SignUpForm extends Component {
                 </CardSection>
 
                 {this.renderError()}
-
+                
                 <CardSection>
                     {this.renderButton()}
                 </CardSection>
@@ -76,7 +76,7 @@ class SignUpForm extends Component {
 }
 
 const styles = {
-    errorTestStyle: {
+    errorTextStyle: {
         fontSize: 20,
         alignSelf: 'center',
         color: 'red'
