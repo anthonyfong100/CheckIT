@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 import { RNCamera } from 'react-native-camera';
-import cameraCaptureButton from '../../CheckIt assets/cameraCaptureButton.png'
-import backButton from '../../CheckIt assets/backButton.png'
+import cameraCaptureButton from '../../assets/cameraCaptureButton.png'
+import backButton from '../../assets/backButton.png'
 
 
 export default class CameraScreen extends Component {
@@ -24,7 +24,7 @@ export default class CameraScreen extends Component {
         />
         <View style = {{position: 'absolute', top:0, right:0}}>
           <TouchableOpacity onPress={this.backButtonHandler}>
-            <Image source = {backButton}></Image>
+            <Image source = {backButton} style = {{ width: 40, height: 40 }}></Image>
           </TouchableOpacity>
         </View>
         
