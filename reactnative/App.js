@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+import { Provider, Text, View } from 'react-redux';
 import firebase from '@firebase/app';
 import reducers from './src/reducers';
 import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
-import Router from './src/Router';
+import { Tabs } from './src/NavBar';
+import { SafeAreaView } from 'react-native';
 
 class App extends Component {
   // initialise firebase app when main app initialises
@@ -19,16 +20,18 @@ class App extends Component {
     };
     firebase.initializeApp(config);
   }
-  
+
   render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    // const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
         
-        <Provider store={store}>
-          <Router />
-        </Provider>
+        // <Provider store={store}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#f2f2f2' }}>
+          <Tabs />
+        </SafeAreaView>
+        // </Provider>
     );
   }
 }
 
-export default App;
+ export default App;
