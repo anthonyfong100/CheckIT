@@ -12,7 +12,7 @@ export const frideFoodCreate = ({ name, expiry }) => {
     const { currentUser } = firebase.auth();
 
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/fridgeFood`)
+        firebase.database().ref(`/users/${currentUser.uid}/fridgeFoods`)
         .push({ name, expiry })
         .then(() => {
             dispatch({ type: FRIDGE_FOOD_CREATE })
@@ -25,7 +25,7 @@ export const fridgeFoodFetch = () => {
     const { currentUser } = firebase.auth();
 
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/fridgeFood`)
+        firebase.database().ref(`/users/${currentUser.uid}/fridgeFoods`)
         .on('value', snapshot => {
             dispatch({ type: FRIDGE_FOOD_FETCH_SUCCESS, payload: snapshot.val() });
         });

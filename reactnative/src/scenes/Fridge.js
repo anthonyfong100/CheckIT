@@ -16,11 +16,11 @@ class FridgeList extends Component {
         this.createDataSource(nextProps);
     }
 
-    createDataSource({ fridgeFood }) {
+    createDataSource({ fridgeFoods }) {
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-        this.dataSource = ds.cloneWithRows(fridgeFood);
+        this.dataSource = ds.cloneWithRows(fridgeFoods);
     }
     
     renderRow(fridgeFood) {
@@ -40,9 +40,9 @@ class FridgeList extends Component {
 }
 
 const mapStateToProps = state => {
-    const fridgeFood = _.map(state.fridgeFood, (val, uid) => {
+    const fridgeFoods = _.map(state.fridgeFoods, (val, uid) => {
         return { ...val, uid };
     });
-    return { fridgeFood };
+    return { fridgeFoods };
 }
 export default connect(mapStateToProps, { fridgeFoodFetch }) (FridgeList);

@@ -11,7 +11,7 @@ export const shoppingFoodCreate = ({ name }) => {
     const { currentUser } = firebase.auth();
     
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/shoppingFood`)
+        firebase.database().ref(`/users/${currentUser.uid}/shoppingFoods/`)
         .push({ name })
         .then(() => {
             dispatch({ type: SHOPPING_FOOD_CREATE })
@@ -21,10 +21,10 @@ export const shoppingFoodCreate = ({ name }) => {
 };
 
 export const shoppingFoodFetch = () => {
-    const { currentUser } =firebase.auth();
+    const { currentUser } = firebase.auth();
 
     return (dispatch) => {
-        firebase.database().ref(`/user/${currentUser.uid}/shoppingFood/`)
+        firebase.database().ref(`/user/${currentUser.uid}/shoppingFoods/`)
         .on('value', snapshot => {
             dispatch({ type: SHOPPING_FOOD_FETCH_SUCCESS, payload: snapshot.val()});
         });

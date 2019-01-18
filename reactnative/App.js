@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Provider, Text, View } from 'react-redux';
+import { Provider } from 'react-redux';
 import firebase from '@firebase/app';
 import reducers from './src/reducers';
 import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
-import { Tabs } from './src/NavBar';
 import { SafeAreaView } from 'react-native';
+import MyNavigator from './src/Navigator';
 
-class App extends Component {
+class App extends React.Component {
   // initialise firebase app when main app initialises
+  
   componentWillMount() {
     const config = {
       apiKey: 'AIzaSyAwegGBozZMVtyNy72JWgv2RGu6zZzzmhQ',
@@ -22,14 +23,14 @@ class App extends Component {
   }
 
   render() {
-    // const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
         
-        // <Provider store={store}>
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#f2f2f2' }}>
-          <Tabs />
-        </SafeAreaView>
-        // </Provider>
+        <Provider store={store}>
+          <SafeAreaView style={{ flex: 1, backgroundColor: '#f2f2f2' }}>
+            <MyNavigator />
+          </SafeAreaView>
+        </Provider>
     );
   }
 }

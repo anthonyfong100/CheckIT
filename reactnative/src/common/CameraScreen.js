@@ -21,13 +21,7 @@ export default class CameraScreen extends Component {
           permissionDialogTitle={'Permission to use camera'}
           permissionDialogMessage={'We need your permission to use your camera phone'}
           
-        />
-        <View style = {{position: 'absolute', top:0, right:0}}>
-          <TouchableOpacity onPress={this.backButtonHandler}>
-            <Image source = {backButton} style = {{ width: 40, height: 40 }}></Image>
-          </TouchableOpacity>
-        </View>
-        
+        />        
         
         <View style={{ position: 'absolute', bottom: 0, left:0, right:0, justifyContent: 'center', alignContent: 'center' }}>
           <TouchableOpacity onPress={this.takePicture.bind(this)} style = {styles.capture} >

@@ -1,13 +1,14 @@
 // render code for shopping list
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { shoppingFoodFetch } from '../actions';
 import ListShoppingItem from './ListShoppingItem';
 
 class ShoppingList extends Component {
-    componentWillMount() {
+    /*
+    componentDidMount() {
         this.props.shoppingFoodFetch();
         this.createDataSource(this.props);
     }
@@ -16,32 +17,34 @@ class ShoppingList extends Component {
         this.createDataSource(nextProps);
     }
 
-    createDataSource({ shoppingFood }) {
-        const ds = new ListView.DataSource({
+    createDataSource({ shoppingFoods }) {
+        const ds = new FlatList.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-        this.dataSource = ds.cloneWithRows(shoppingFood);
+        this.dataSource = ds.cloneWithRows(shoppingFoods);
     }
 
     renderRow(shoppingFood) {
         return <ListShoppingItem shoppingFood={shoppingFood} />;
     }
-
+*/
     render() {
         return(
-            <ListView 
+            <FlatList 
                 enableEmptySections
-                dataSource={this.dataSource}
-                renderRow={this.renderRow}
+                //dataSource={this.dataSource}
+                //renderRow={this.renderRow}
             />
         );
     }
 }
-
+/*
 const mapStateToProps = state => {
-    const shoppingFood = _.map(state.shoppingFood, (val, uid) => {
-        return { ...val, uid };
+    const shoppingFoods = _.map(state.shoppingFoods, (val, uid) => {
+        return { ...val,};
     });
-    return { shoppingFood };
+    return { shoppingFoods };
 }
 export default connect(mapStateToProps, { shoppingFoodFetch }) (ShoppingList);
+*/
+export default ShoppingList;

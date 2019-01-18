@@ -5,7 +5,7 @@ import ShoppingReducer from './ShoppingReducer';
 import FridgeReducers from './FridgeReducers';
 
 export default combineReducers({
-    auth:AuthReducer,
-    shoppingFood:ShoppingReducer,
-    fridgeFood:FridgeReducers
+    auth: AuthReducer,
+    shoppingFoods: ShoppingReducer,
+    fridgeFoods: FridgeReducers
 })
