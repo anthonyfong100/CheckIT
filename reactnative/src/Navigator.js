@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform, StatusBar } from 'react-native';
 import { Card, CardSection } from './common';
-// import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { 
     createMaterialTopTabNavigator, 
     createSwitchNavigator,
@@ -12,8 +11,17 @@ import CameraScreen from './common/CameraScreen';
 // import ShoppingList from './scenes/ShoppingList';
 // import Fridge from './scenes/Fridge';
 // import Recipe from './scenes/Recipe';
-import SignUpForm from './scenes/SignUpForm';
+// import SignUpForm from './scenes/SignUpForm';
+// import WelcomeScreen from './scenes/WelcomeScreen';
 import { Button } from './common';
+
+import SignUp from "./scenes/SignUp";
+import SignIn from "./scenes/SignIn";
+
+
+const headerStyle = {
+    marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+  };
 
 // Dummy Classes
 class LoginForm extends Component {
@@ -54,6 +62,7 @@ class ShoppingList extends Component {
 
 
 // TODO style the welcome screen
+
 class WelcomeScreen extends Component {
     // TODO make LoginForm
     render() {
@@ -69,7 +78,7 @@ class WelcomeScreen extends Component {
                 <CardSection>
                     <Button 
                         title="Sign Up" 
-                        onpress={() => this.props.navigation.navigate('SignUpForm')}
+                        onpress={() => this.props.navigation.navigate(SignUpForm)}
                     />
                 </CardSection>
                 </Card>
@@ -79,12 +88,18 @@ class WelcomeScreen extends Component {
 }
 
 // TODO hide header for camera
-const DashboardTabNavigator = createMaterialTopTabNavigator (
+export const SignedInNavigator = createMaterialTopTabNavigator (
     {
+        
+        Fridge: { screen: Fridge,
+            navigationOptions: {
+                tabBarLabel: 'Fridge'
+            } 
+        },
         Shopping: { screen: ShoppingList,
             navigationOptions: {
                 tabBarLabel: 'Shops',
-                headerTitle: "Shopping List"
+                title: "Shopping List"
             }
         },
         CameraScreen: { screen: CameraScreen,
@@ -92,17 +107,11 @@ const DashboardTabNavigator = createMaterialTopTabNavigator (
                 tabBarLabel: 'Camera'
             }
         },
-        Fridge: { screen: Fridge,
-            navigationOptions: {
-                tabBarLabel: 'Fridge'
-            } 
-        },
         Recipe: { screen: Recipe,
             navigationOptions: {
                 tabBarLabel: 'Recipes'
             }
         }
-
     },
     {
         tabBarPosition: 'bottom',
@@ -110,8 +119,7 @@ const DashboardTabNavigator = createMaterialTopTabNavigator (
         initialRouteName: 'Fridge',
         swipeEnabled: true,
         animationEnabled: true,
-        
-        defaultNavigationOptions: ({ navigation }) => ({
+        navigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ tintColor }) => {
                 const { routeName } = navigation.state;
                 let IconComponent = Ionicons;
@@ -139,42 +147,42 @@ const DashboardTabNavigator = createMaterialTopTabNavigator (
                 height: 0
             },
             showIcon: true
-        },
-        navigationOptions: ({ navigation }) => {
-            const { routeName } = navigation.state.routes[navigation.state.index];
-            let title;
-            if (routeName === 'Fridge') {
-                title = 'My Fridge';
-            } else if (routeName === 'Shopping') {
-                title = 'Shopping List';
-            } else if (routeName === 'CameraScreen') {
-                title = 'Camera';
-            } else if (routeName === 'Recipe') {
-                title = 'Recipes';
-            }
-            return {
-              headerTitle: title
-            };
         }
     }
 );
 
-const DashboardStackNavigator = createStackNavigator(
+export const SignedOutNavigator = createStackNavigator(
     {
-        DashboardTabNavigator: DashboardTabNavigator
-    },
-    {
-        
+        SignUp: {
+            screen: SignUp,
+            navigationOptions: {
+              title: "Sign Up",
+              headerStyle
+            }
+          },
+        SignIn: {
+            screen: SignIn,
+            navigationOptions: {
+                title: "Sign In",
+                headerStyle
+            }
+        }    
     }
 )
 
-const AppSwitchNavigator = createSwitchNavigator({
-    Dashboard: { screen: DashboardStackNavigator },
-    Welcome: { screen: WelcomeScreen } // TODO make welcome screen with signup login options
-    
-});
+export const MyNavigator = (signedIn = false) => {
+    return createSwitchNavigator(
+        {
+            SignedIn: { screen: SignedInNavigator },
+            SignedOut: { screen: SignedOutNavigator }
+            },
+        {
+            initialRouteName: signedIn ? "SignedOut" : "SignedIn"
+        }
+    );
+};
 
-const MyNavigator = createAppContainer(AppSwitchNavigator);
+// export const MyNavigator = createAppContainer(RootNavigator);
 
 const styles = {
     container: { 
@@ -183,5 +191,3 @@ const styles = {
         justifyContent: 'center'
     }
 }
-
-export default MyNavigator;
