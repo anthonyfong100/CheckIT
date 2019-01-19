@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import CameraScreen from './common/CameraScreen';
 // import ShoppingList from './scenes/ShoppingList';
 // import Fridge from './scenes/Fridge';
-// import Recipe from './scenes/Recipe';
+import Recipe from './scenes/Recipe';
 // import SignUpForm from './scenes/SignUpForm';
 // import WelcomeScreen from './scenes/WelcomeScreen';
 import { Button } from './common';
@@ -18,7 +18,7 @@ import { Button } from './common';
 import SignUp from "./scenes/SignUp";
 import SignIn from "./scenes/SignIn";
 
-
+// gives a header spacing, not needed for now
 const headerStyle = {
     marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
   };
@@ -32,13 +32,15 @@ class LoginForm extends Component {
     }
 }
 
+/*
 class Recipe extends Component {
     render() {
         return (
             <Text>Recipe</Text>
         );
     }
-}
+}*/
+
 
 class Fridge extends Component {
     render() {
@@ -117,7 +119,7 @@ export const SignedInNavigator = createMaterialTopTabNavigator (
         tabBarPosition: 'bottom',
         unmountInactiveRoutes: true,
         initialRouteName: 'Fridge',
-        swipeEnabled: true,
+        swipeEnabled: false,
         animationEnabled: true,
         navigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ tintColor }) => {
@@ -153,20 +155,20 @@ export const SignedInNavigator = createMaterialTopTabNavigator (
 
 export const SignedOutNavigator = createStackNavigator(
     {
-        SignUp: {
-            screen: SignUp,
-            navigationOptions: {
-              title: "Sign Up",
-              headerStyle
-            }
-          },
         SignIn: {
             screen: SignIn,
             navigationOptions: {
                 title: "Sign In",
-                headerStyle
+            
             }
-        }    
+        },   
+        SignUp: {
+            screen: SignUp,
+            navigationOptions: {
+              title: "Sign Up",
+              
+            }
+        } 
     }
 )
 

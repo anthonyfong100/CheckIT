@@ -1,8 +1,9 @@
-import React from "react";
-import { View } from "react-native";
-import { Card, Button, FormLabel, FormInput } from "react-native-elements";
+import React, { Component } from "react";
+import { View, Text } from "react-native";
+// import { Card, Button, FormLabel, FormInput } from "react-native-elements";
 import { onSignIn } from "../Auth";
-
+import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
+/*
 export default ({ navigation }) => (
   <View style={{ paddingVertical: 20 }}>
     <Card>
@@ -31,3 +32,59 @@ export default ({ navigation }) => (
     </Card>
   </View>
 );
+
+*/
+
+class SignUp extends Component {
+  render() {
+    return (
+      <Container style={styles.container}>
+        <Form>
+          <Item floatingLabel>
+            <Label>Email</Label>
+            <Input 
+              autoCorrect= {false}
+              autoCapitalize= 'none'/>
+          </Item>
+
+          <Item floatingLabel>
+            <Label>Password</Label>
+            <Input 
+              secureTextEntry
+              autoCorrect={false}
+              autoCapitalize='none'
+            />
+          </Item>
+
+          <Item floatingLabel>
+            <Label>Confirm Password</Label>
+            <Input 
+              secureTextEntry
+              autoCorrect={false}
+              autoCapitalize='none'
+            />
+          </Item>
+
+          <Button style={{ marginTop:20}}
+            full
+            rounded
+            success
+          >
+            <Text style={{ color: '#fff' }}>Sign Up</Text>
+          </Button>
+        </Form>
+      </Container>
+    );
+  }
+}
+
+const styles= {
+  container: {
+    flex: 1,
+    nbackgroundColor: '#fff',
+    justifyContent: 'center',
+    padding: 10
+  }
+}
+
+export default SignUp;
