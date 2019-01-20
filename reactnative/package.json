@@ -23,7 +23,8 @@
     "react-navigation-material-bottom-tabs": "^0.1.2",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "react-native-collapse-view": "https://github.com/sanpyaelin/react-native-collapse-view"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
