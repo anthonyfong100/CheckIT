@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import { View, Text, AppRegistry, ImageBackground, StyleSheet} from 'react-native';
 import CollapseView from 'react-native-collapse-view';
+import AddButtonToShopping from './AddButtonToShopping';
 
 
 
 export default class RecipeCards extends Component {
     constructor(props){
         super(props);
+        
     }
 
 
-    _renderIngredients = (array) => {
-    ingredientListArr = [];
-
-    for (let i = 0; i < array.length; i++){
-        ingredientListArr.push(
-            <Text>
-                {array[i]}
-            </Text>
-        )
+    _renderIngredients() {
+        i=0;
+        
+        return this.props.ingredients.map(item => {
+            return(
+                <View style = {{flexDirection: 'row', justifyContent: 'center'}}>
+                    <Text>{item}</Text>
+                    <AddButtonToShopping></AddButtonToShopping>
+                </View>
+                
+            )
+            i = i+1;
+        })
     }
-    return ingredientListArr;
-}
     
 
     
@@ -35,7 +39,7 @@ export default class RecipeCards extends Component {
                 </Text>
                 </View>
                 <View>
-                    {this._renderIngredients(this.props.ingredients)}
+                    {this._renderIngredients()}
                 </View>
             </View>
         )
