@@ -5,7 +5,7 @@ import reducers from './src/reducers';
 import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { SafeAreaView } from 'react-native';
-import { MyNavigator } from './src/Navigator';
+import { MyNavigator } from './src/navigation/Navigator';
 
 class App extends React.Component {
   // initialise firebase app when main app initialises
@@ -25,11 +25,12 @@ class App extends React.Component {
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
-    const Layout = MyNavigator();
+    // const Layout = MyNavigator;
+
     return (
         <Provider store={store}>
           <SafeAreaView style={{ flex: 1, backgroundColor: '#f2f2f2' }}>
-            <Layout />
+            <MyNavigator />
           </SafeAreaView>
         </Provider>
     );

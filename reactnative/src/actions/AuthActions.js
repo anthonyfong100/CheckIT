@@ -31,7 +31,7 @@ export const passwordChanged = (text) => {
 
 
 // action for user trying to login (posts to firebase database)
-export const loginUser = ({ email, password}) => {
+export const loginUser = ({ email, password }) => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
         firebase.auth().signInWithEmailAndPassword(email, password)
@@ -44,9 +44,21 @@ export const loginUser = ({ email, password}) => {
     };
 };
 
+// action for fb authentication registering to firebase
+//TODO fb registration not working
+export const loginUserFb = (credential) => {
+    return (dispatch) => {
+        console.log(credential)
+        dispatch({ type: LOGIN_USER });
+        firebase.auth().signInAndRetrieveDataWithCredential(credential)
+        .then(user => loginUserSuccess(dispatch, user))
+        .catch(() => loginUserFail(dispatch));
+    }
+}
+
 
 // action for login user fail
-const loginUserFail = (dispatch) => {
+export const loginUserFail = (dispatch) => {
     dispatch({ type: LOGIN_USER_FAIL });
 };
 
@@ -56,6 +68,4 @@ const loginUserSuccess = (dispatch, user) => {
         type: LOGIN_USER_SUCCESS,
         payload: user
     });
-
-    navigation.navigate("SignedIn");
 };

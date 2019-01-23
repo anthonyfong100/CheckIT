@@ -1,104 +1,32 @@
 import React, { Component } from 'react';
 import { View, Text, Platform, StatusBar } from 'react-native';
-import { Card, CardSection } from './common';
+import { Card, CardSection } from '../common';
 import { 
     createMaterialTopTabNavigator, 
     createSwitchNavigator,
     createStackNavigator,
     createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import CameraScreen from './common/CameraScreen';
-// import ShoppingList from './scenes/ShoppingList';
-// import Fridge from './scenes/Fridge';
-import Recipe from './scenes/Recipe';
-// import SignUpForm from './scenes/SignUpForm';
-// import WelcomeScreen from './scenes/WelcomeScreen';
-import { Button } from './common';
+import CameraScreen from '../common/CameraScreen';
+import ShoppingList1 from '../scenes/ShoppingList1';
+import Fridge1 from '../scenes/Fridge1';
+import Recipe from '../scenes/Recipe';
+import { Button } from '../common';
+import { connect } from "react-redux";
 
-import SignUp from "./scenes/SignUp";
-import SignIn from "./scenes/SignIn";
-
-// gives a header spacing, not needed for now
-const headerStyle = {
-    marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-  };
-
-// Dummy Classes
-class LoginForm extends Component {
-    render() {
-        return (
-            <Text>LoginForm</Text>
-        );
-    }
-}
-
-/*
-class Recipe extends Component {
-    render() {
-        return (
-            <Text>Recipe</Text>
-        );
-    }
-}*/
+import SignUp from "../scenes/SignUp";
+import SignIn from "../scenes/SignIn";
 
 
-class Fridge extends Component {
-    render() {
-        return (
-            <Text>Fridge</Text>
-        );
-    }
-}
-
-class ShoppingList extends Component {
-    render() {
-        return (
-            <Text>ShoppingList</Text>
-        );
-    }
-}
-// ^ dummy classes
-
-
-
-
-
-// TODO style the welcome screen
-
-class WelcomeScreen extends Component {
-    // TODO make LoginForm
-    render() {
-        return (
-            <View >
-                <Card>
-                    <CardSection>
-                        <Button
-                            title="Log In"
-                            onPress={() => this.props.navigation.navigate('LoginForm')} 
-                        />
-                </CardSection>
-                <CardSection>
-                    <Button 
-                        title="Sign Up" 
-                        onpress={() => this.props.navigation.navigate(SignUpForm)}
-                    />
-                </CardSection>
-                </Card>
-            </View>
-        )
-    }
-}
-
-// TODO hide header for camera
-export const SignedInNavigator = createMaterialTopTabNavigator (
+const SignedInNavigator = createMaterialTopTabNavigator (
     {
         
-        Fridge: { screen: Fridge,
+        Fridge: { screen: Fridge1,
             navigationOptions: {
                 tabBarLabel: 'Fridge'
             } 
         },
-        Shopping: { screen: ShoppingList,
+        Shopping: { screen: ShoppingList1,
             navigationOptions: {
                 tabBarLabel: 'Shops',
                 title: "Shopping List"
@@ -153,7 +81,7 @@ export const SignedInNavigator = createMaterialTopTabNavigator (
     }
 );
 
-export const SignedOutNavigator = createStackNavigator(
+const SignedOutNavigator = createStackNavigator(
     {
         SignIn: {
             screen: SignIn,
@@ -172,19 +100,17 @@ export const SignedOutNavigator = createStackNavigator(
     }
 )
 
-export const MyNavigator = (signedIn = false) => {
-    return createSwitchNavigator(
+
+export const MyNavigator = createSwitchNavigator(
         {
             SignedIn: { screen: SignedInNavigator },
             SignedOut: { screen: SignedOutNavigator }
-            },
+        },
         {
-            initialRouteName: signedIn ? "SignedOut" : "SignedIn"
+            initialRouteName: 'SignedOut'
         }
     );
-};
 
-// export const MyNavigator = createAppContainer(RootNavigator);
 
 const styles = {
     container: { 
@@ -193,3 +119,10 @@ const styles = {
         justifyContent: 'center'
     }
 }
+
+const mapStateToProps = ({ auth }) => {
+    const { email, password, error, loading, isLoggedIn } = auth;
+    return { email, password, error, loading, isLoggedIn };
+};
+
+export default connect(mapStateToProps)(MyNavigator);

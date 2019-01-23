@@ -1,33 +1,23 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
-import { onSignIn } from "../Auth";
 import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { emailChanged, passwordChanged, loginUser, loginUserFb } from '../actions';
 import { connect } from "react-redux";
+import { Spinner } from "../common";
+import firebase from '@firebase/app';
+import '@firebase/auth';
 
-/*
-export default ({ navigation }) => (
-  <View style={{ paddingVertical: 20 }}>
-    <Card>
-      <FormLabel>Email</FormLabel>
-      <FormInput placeholder="Email address..." />
-      <FormLabel>Password</FormLabel>
-      <FormInput secureTextEntry placeholder="Password..." />
-
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        backgroundColor="#03A9F4"
-        title="SIGN IN"
-        onPress={() => {
-          onSignIn().then(() => navigation.navigate("SignedIn"));
-        }}
-      />
-    </Card>
-  </View>
-);
-*/
+import FBSDK, { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 class SignIn extends Component {
+  
+  componentDidUpdate () {
+    const status = this.props.isLoggedIn;
+    if (status == true) {
+      this.props.navigation.navigate("CameraScreen");
+    }
+  }
+  
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
@@ -38,7 +28,7 @@ class SignIn extends Component {
 
   onButtonPress() {
       const { email, password } = this.props;
-      this.props.loginUser({ email, password })
+      this.props.loginUser({ email, password });
   }
 
   renderError() {
@@ -51,6 +41,45 @@ class SignIn extends Component {
               </View>
           );
       }
+  }
+
+  renderSignInButton() {
+    if (this.props.loading) {
+      return (
+        <Item style={{ paddingTop: 10, paddingBottom: 10 }}>
+        <Spinner size="large" />
+        </Item>
+      )
+    } 
+    return (
+      <Button style={{ marginTop:10, color: '#3C5A99' }}
+        full
+        rounded
+        success
+        onPress={this.onButtonPress.bind(this)}
+      >
+        <Text style={{ color: '#fff' }}>Log In</Text>
+      </Button>
+    )
+  }
+
+  async _fbAuth() {
+    LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
+      
+      if (result.isCancelled) {
+        console.log('login was cancelled');
+      } else {
+        console.log('login was a success: ' + result.grantedPermissions.toString());
+       
+        AccessToken.getCurrentAccessToken()
+        .then((data) => {
+          const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken) 
+          loginUserFb(credential)
+        })
+      }
+    }, function(error) {
+      console.log('An error occured: ' + error); 
+    })
   }
 
   render() {
@@ -77,20 +106,17 @@ class SignIn extends Component {
               value={this.props.password}
             />
           </Item>
+          
+          {this.renderError()}
+          {this.renderSignInButton()}
+          
+          
 
-          <Button style={{ marginTop:20, color: '#3C5A99' }}
-            full
-            rounded
-            success
-            onPress={()=>  this.signInUser(this.state.email, this.state.password)}
-          >
-            <Text style={{ color: '#fff' }}>Log In</Text>
-          </Button>
-
-          <Button style={{ marginTop:10}}
+          <Button style={{ marginTop:10 }}
             full
             rounded
             primary
+            onPress={() => this._fbAuth()}
           >
             <Text style={{ color: '#fff' }}>Log In with Facebook</Text>
           </Button>
@@ -99,7 +125,7 @@ class SignIn extends Component {
             full
             rounded
             success
-            onPress={() => navigation.navigate("SignUp")}
+            onPress={() => this.props.navigation.navigate("SignUp")}
           >
           <Text style={{ color: '#fff' }}>Sign Up</Text>
           </Button>
@@ -114,19 +140,26 @@ class SignIn extends Component {
 const styles= {
   container: {
     flex: 1,
-    nbackgroundColor: '#fff',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     padding: 10
-  }
+  },
+  errorTextStyle: {
+    marginTop: 10,
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'red'
+}
 }
 
 const mapStateToProps = ({ auth }) => {
-  const { email, password, error, loading } = auth;
-  return { email, password, error, loading };
-}
+  const { email, password, user, error, loading, isLoggedIn } = auth;
+  return { email, password, user, error, loading, isLoggedIn };
+};
 
 export default connect(mapStateToProps, {
   emailChanged,
   passwordChanged,
-  loginUser
+  loginUser,
+  loginUserFb
 }) (SignIn);

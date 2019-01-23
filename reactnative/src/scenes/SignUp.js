@@ -3,39 +3,61 @@ import { View, Text } from "react-native";
 // import { Card, Button, FormLabel, FormInput } from "react-native-elements";
 import { onSignIn } from "../Auth";
 import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
-/*
-export default ({ navigation }) => (
-  <View style={{ paddingVertical: 20 }}>
-    <Card>
-      <FormLabel>Email</FormLabel>
-      <FormInput placeholder="Email address..." />
-      <FormLabel>Password</FormLabel>
-      <FormInput secureTextEntry placeholder="Password..." />
-      <FormLabel>Confirm Password</FormLabel>
-      <FormInput secureTextEntry placeholder="Confirm Password..." />
-
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        backgroundColor="#03A9F4"
-        title="SIGN UP"
-        onPress={() => {
-          onSignIn().then(() => navigation.navigate("SignedIn"));
-        }}
-      />
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        backgroundColor="transparent"
-        textStyle={{ color: "#bcbec1" }}
-        title="Sign In"
-        onPress={() => navigation.navigate("SignIn")}
-      />
-    </Card>
-  </View>
-);
-
-*/
+import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { connect } from "react-redux";
+import { Spinner } from "../common";
 
 class SignUp extends Component {
+  state = { confirmation: '' }
+
+  onEmailChange(text) {
+    this.props.emailChanged(text);
+  }
+
+  onPasswordChange(text) {
+      this.props.passwordChanged(text);
+  }
+
+  onButtonPress() {
+      const { email, password } = this.props;
+      const { confirmation } = this.state.confirmation;
+      /*if (password !== confirmation) {
+        return 
+        {this.renderError()}
+        
+      } else {*/
+      this.props.loginUser({ email, password })
+      
+  } // TODO create signUpUser method
+
+  renderError() {
+      if(this.props.error) {
+          return (
+              <View style={{ backgroundColor: 'white' }}>
+                  <Text style={styles.errorTextStyle}>
+                      {this.props.error}
+                  </Text>
+              </View>
+          );
+      }
+  }
+
+  renderSignUpButton() {
+    if (this.props.loading) {
+      return <Spinner size="large" />;
+    } 
+    return (
+      <Button style={{ marginTop:10, color: '#3C5A99' }}
+        full
+        rounded
+        success
+        onPress={this.onButtonPress.bind(this)}
+      >
+        <Text style={{ color: '#fff' }}>Sign Up</Text>
+      </Button>
+    )
+  }
+  
   render() {
     return (
       <Container style={styles.container}>
@@ -44,7 +66,10 @@ class SignUp extends Component {
             <Label>Email</Label>
             <Input 
               autoCorrect= {false}
-              autoCapitalize= 'none'/>
+              autoCapitalize= 'none'
+              onChangeText={this.onEmailChange.bind(this)}
+              value={this.props.email}
+              />
           </Item>
 
           <Item floatingLabel>
@@ -53,6 +78,8 @@ class SignUp extends Component {
               secureTextEntry
               autoCorrect={false}
               autoCapitalize='none'
+              onChangeText={this.onPasswordChange.bind(this)}
+              value={this.props.password}
             />
           </Item>
 
@@ -62,16 +89,12 @@ class SignUp extends Component {
               secureTextEntry
               autoCorrect={false}
               autoCapitalize='none'
+              value={this.state.confirmation}
+              onChangeText={(confirmation) => this.setState({ confirmation })}
             />
           </Item>
 
-          <Button style={{ marginTop:20}}
-            full
-            rounded
-            success
-          >
-            <Text style={{ color: '#fff' }}>Sign Up</Text>
-          </Button>
+          {this.renderSignUpButton()}
         </Form>
       </Container>
     );
@@ -84,7 +107,22 @@ const styles= {
     nbackgroundColor: '#fff',
     justifyContent: 'center',
     padding: 10
+  },
+  errorTextStyle: {
+    marginTop: 10,
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'red'
   }
 }
 
-export default SignUp;
+const mapStateToProps = ({ auth }) => {
+  const { email, password, error, loading, isLoggedIn } = auth;
+  return { email, password, error, loading, isLoggedIn };
+};
+
+export default connect(mapStateToProps, {
+  emailChanged,
+  passwordChanged,
+  loginUser
+}) (SignUp);
