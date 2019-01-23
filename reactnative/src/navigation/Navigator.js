@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Platform, StatusBar } from 'react-native';
+import { View, Text, Platform, StatusBar, ScrollView } from 'react-native';
 import { Card, CardSection } from '../common';
 import { 
     createMaterialTopTabNavigator, 
@@ -13,19 +13,9 @@ import Fridge1 from '../scenes/Fridge1';
 import Recipe from '../scenes/Recipe';
 import { Button } from '../common';
 import { connect } from "react-redux";
-
+import RecipeCards from '../common/RecipeCards';
 import SignUp from "../scenes/SignUp";
 import SignIn from "../scenes/SignIn";
-
-
-// Dummy Classes
-class LoginForm extends Component {
-    render() {
-        return (
-            <Text>LoginForm</Text>
-        );
-    }
-}
 
 
 class RecipeScreen extends Component {
@@ -62,52 +52,6 @@ class RecipeScreen extends Component {
 }
 
 
-class Fridge extends Component {
-    render() {
-        return (
-            <Text>Fridge</Text>
-        );
-    }
-}
-
-class ShoppingList extends Component {
-    render() {
-        return (
-            <Text>ShoppingList</Text>
-        );
-    }
-}
-// ^ dummy classes
-
-
-
-
-
-// TODO style the welcome screen
-
-class WelcomeScreen extends Component {
-    // TODO make LoginForm
-    render() {
-        return (
-            <View >
-                <Card>
-                    <CardSection>
-                        <Button
-                            title="Log In"
-                            onPress={() => this.props.navigation.navigate('LoginForm')} 
-                        />
-                </CardSection>
-                <CardSection>
-                    <Button 
-                        title="Sign Up" 
-                        onpress={() => this.props.navigation.navigate(SignUpForm)}
-                    />
-                </CardSection>
-                </Card>
-            </View>
-        )
-    }
-}
 
 // TODO hide header for camera
 export const SignedInNavigator = createMaterialTopTabNavigator (
