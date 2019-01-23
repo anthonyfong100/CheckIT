@@ -1,42 +1,23 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD:reactnative/src/navigation/Navigator.js
 import { View, Text, Platform, StatusBar } from 'react-native';
 import { Card, CardSection } from '../common';
-=======
-import { View, Text, Platform, StatusBar, ScrollView} from 'react-native';
-import { Card, CardSection } from './common';
->>>>>>> 84effae4b995a742539773e08df91483f6d819ee:reactnative/src/Navigator.js
 import { 
     createMaterialTopTabNavigator, 
     createSwitchNavigator,
     createStackNavigator,
     createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-<<<<<<< HEAD:reactnative/src/navigation/Navigator.js
 import CameraScreen from '../common/CameraScreen';
 import ShoppingList1 from '../scenes/ShoppingList1';
 import Fridge1 from '../scenes/Fridge1';
 import Recipe from '../scenes/Recipe';
 import { Button } from '../common';
 import { connect } from "react-redux";
-=======
-import CameraScreen from './common/CameraScreen';
-import RecipeCards from './common/RecipeCards';
-// import ShoppingList from './scenes/ShoppingList';
-// import Fridge from './scenes/Fridge';
-// import Recipe from './scenes/Recipe';
-// import SignUpForm from './scenes/SignUpForm';
-// import WelcomeScreen from './scenes/WelcomeScreen';
-import { Button } from './common';
->>>>>>> 84effae4b995a742539773e08df91483f6d819ee:reactnative/src/Navigator.js
 
 import SignUp from "../scenes/SignUp";
 import SignIn from "../scenes/SignIn";
 
 
-<<<<<<< HEAD:reactnative/src/navigation/Navigator.js
-const SignedInNavigator = createMaterialTopTabNavigator (
-=======
 // Dummy Classes
 class LoginForm extends Component {
     render() {
@@ -130,7 +111,6 @@ class WelcomeScreen extends Component {
 
 // TODO hide header for camera
 export const SignedInNavigator = createMaterialTopTabNavigator (
->>>>>>> 84effae4b995a742539773e08df91483f6d819ee:reactnative/src/Navigator.js
     {
         
         Fridge: { screen: Fridge1,
