@@ -14,7 +14,7 @@ class SignIn extends Component {
   componentDidUpdate () {
     const status = this.props.isLoggedIn;
     if (status == true) {
-      this.props.navigation.navigate("CameraScreen");
+      this.props.navigation.navigate("Fridge");
     }
   }
   

@@ -7,12 +7,14 @@ import {
     createStackNavigator,
     createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import CameraScreen from '../common/CameraScreen';
-import ShoppingList1 from '../scenes/ShoppingList1';
-import Fridge1 from '../scenes/Fridge1';
-import Recipe from '../scenes/Recipe';
 import { Button } from '../common';
 import { connect } from "react-redux";
+import { Container, Header, Body, Title, Content } from 'native-base';
+
+import CameraScreen from '../common/CameraScreen';
+import ShoppingList1 from '../scenes/ShoppingList1';
+import Fridge from '../scenes/Fridge';
+import Recipe from '../scenes/Recipe';
 import RecipeCards from '../common/RecipeCards';
 import SignUp from "../scenes/SignUp";
 import SignIn from "../scenes/SignIn";
@@ -44,20 +46,30 @@ class RecipeScreen extends Component {
     }
     render() {
         return (
-            <ScrollView style = {styles.recipeScreenContainer}>
-            {this.iterateThroughRecipes()}
-            </ScrollView>
+            <Container style={styles.container}>
+                <Header
+                    style={{ backgroundColor: '#f2f2f2' }}
+                    androidStatusBarColor="#000000"
+                >
+                <Body>
+                    <Title style={{ color: '#000000' }}>Recipes</Title>
+                </Body>
+                </Header>
+                <Content style={styles.container}>
+                    <ScrollView style = {styles.recipeScreenContainer}>
+                    {this.iterateThroughRecipes()}
+                    </ScrollView>
+                </Content>
+            </Container>
         );
     }
 }
-
-
 
 // TODO hide header for camera
 export const SignedInNavigator = createMaterialTopTabNavigator (
     {
         
-        Fridge: { screen: Fridge1,
+        Fridge: { screen: Fridge,
             navigationOptions: {
                 tabBarLabel: 'Fridge'
             } 
@@ -150,9 +162,7 @@ export const MyNavigator = createSwitchNavigator(
 
 const styles = {
     container: { 
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        flex: 1
     },
     recipeScreenContainer: {
         flex: 1,
