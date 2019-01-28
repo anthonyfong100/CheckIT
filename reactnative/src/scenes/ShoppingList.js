@@ -1,14 +1,15 @@
-// render code for shopping list
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { ListView } from 'react-native';
+import { Container, Header, Body, Title, Content, Button, Icon, Input, Item } from 'native-base';
+
 import { connect } from 'react-redux';
-import { shoppingFoodFetch } from '../actions';
-import ListShoppingItem from './ListShoppingItem';
+import { shoppingFoodFetch, shoppingFoodCreate, shoppingFoodUpdate } from '../actions';
+import ListShoppingItem from '../containers/ListShoppingItem';
 
 class ShoppingList extends Component {
-    /*
-    componentDidMount() {
+    
+    componentWillMount() {
         this.props.shoppingFoodFetch();
         this.createDataSource(this.props);
     }
@@ -18,33 +19,77 @@ class ShoppingList extends Component {
     }
 
     createDataSource({ shoppingFoods }) {
-        const ds = new FlatList.DataSource({
+        const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
         this.dataSource = ds.cloneWithRows(shoppingFoods);
     }
 
     renderRow(shoppingFood) {
+        console.log("1" + shoppingFood);
         return <ListShoppingItem shoppingFood={shoppingFood} />;
     }
-*/
+
+    onButtonPress() {
+        const { name } = this.props;
+        this.props.shoppingFoodCreate({ name });
+    }
+
     render() {
         return(
-            <FlatList 
-                enableEmptySections
-                //dataSource={this.dataSource}
-                //renderRow={this.renderRow}
-            />
+            <Container style={styles.container}>
+                <Header
+                    style={{ backgroundColor: '#f2f2f2' }}
+                    androidStatusBarColor="#000"
+                >
+                    <Body>
+                        <Title style={{ color: '#000' }}>My Shopping List</Title>
+                    </Body>
+                </Header>
+                <Content style={{ flex: 1, backgroundColor: '#fff', marginTop: 5 }}>
+                
+                <Item>
+                    <Input 
+                        label="Item"
+                        placeholder="Add Item"
+                        value={this.props.name}
+                        onChangeText={value => this.props.shoppingFoodUpdate({ prop: 'name', value })}
+                    />
+                    <Button
+                        onPress={this.onButtonPress.bind(this)}
+                    >
+                        <Icon name="add" />
+                    </Button>
+                </Item>
+               
+                <ListView
+                    enableEmptySections
+                    dataSource={this.dataSource}
+                    renderRow={this.renderRow}
+                />
+                </Content>
+            </Container>
         );
     }
 }
-/*
-const mapStateToProps = state => {
+
+const mapStateToProps = (state) => {
     const shoppingFoods = _.map(state.shoppingFoods, (val, uid) => {
-        return { ...val,};
+        return { ...val, uid };
     });
-    return { shoppingFoods };
+    const { name } = state.addShoppingFoods;
+    return { shoppingFoods, name };
 }
-export default connect(mapStateToProps, { shoppingFoodFetch }) (ShoppingList);
-*/
-export default ShoppingList;
+
+const styles = {
+    container: {
+        flex: 1,
+        backgroundColor: '#fff'
+    }
+}
+
+export default connect(mapStateToProps, { 
+    shoppingFoodFetch,
+    shoppingFoodCreate,
+    shoppingFoodUpdate 
+}) (ShoppingList);

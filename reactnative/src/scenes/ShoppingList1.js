@@ -4,6 +4,7 @@ import { Text, View, StatusBar, ListView } from 'react-native';
 import { Icon, Container, Content, Header, Form, List, ListItem, Input, Item, Button, Label, Title, Left, Body, Right } from 'native-base';
 import firebase from '@firebase/app';
 import '@firebase/database';
+import '@firebase/auth';
 
 class ShoppingList1 extends Component {
     constructor(props) {
@@ -21,8 +22,8 @@ class ShoppingList1 extends Component {
     }
 
     componentDidMount() {
-        var that = this
-        firebase.database().ref('/recipes').on('child_added', function(data){
+        const { currentUser } = firebase.auth();
+        firebase.database().ref(`/users/${currentUser.uid}/recipes`).on('child_added', function(data){
 
             var newData = [...that.state.listViewData]
             newData.push(data)

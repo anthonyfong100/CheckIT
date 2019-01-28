@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { Container, Header, Body, Title, Content } from 'native-base';
 
 import CameraScreen from '../common/CameraScreen';
-import ShoppingList1 from '../scenes/ShoppingList1';
+import ShoppingList from '../scenes/ShoppingList';
 import Fridge from '../scenes/Fridge';
 import Recipe from '../scenes/Recipe';
 import RecipeCards from '../common/RecipeCards';
@@ -74,7 +74,7 @@ export const SignedInNavigator = createMaterialTopTabNavigator (
                 tabBarLabel: 'Fridge'
             } 
         },
-        Shopping: { screen: ShoppingList1,
+        Shopping: { screen: ShoppingList,
             navigationOptions: {
                 tabBarLabel: 'Shops',
                 title: "Shopping List"

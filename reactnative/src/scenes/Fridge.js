@@ -1,11 +1,10 @@
-// render code for fridge
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, DatePicker } from 'native-base';
 
 import { connect } from 'react-redux';
-import { fridgeFoodFetch, fridgeFoodCreate } from '../actions';
+import { fridgeFoodFetch, fridgeFoodCreate, fridgeFoodUpdate } from '../actions';
 import ListFridgeItem from '../containers/ListFridgeItem';
 
 class Fridge extends Component {
@@ -37,10 +36,6 @@ class Fridge extends Component {
         const { name, expiry } = this.props;
         this.props.fridgeFoodCreate({ name, expiry });
     }
-    
-    setDate(){
-
-    }
 
     render() {
         return (
@@ -57,13 +52,15 @@ class Fridge extends Component {
                 
                 <Item>
                     <Input 
-                        // on change text
+                        label="Item"
                         placeholder="Add Item"
+                        value={this.props.name}
+                        onChangeText={value => this.props.fridgeFoodUpdate({ prop: 'name', value })}
                     />
                     <DatePicker
                         defaultDate={new Date(2019, 4, 4)}
                         minimumDate={new Date(2019, 1, 1)}
-                        maximumDate={new Date(2019, 12, 31)}
+                        maximumDate={new Date(2100, 12, 31)}
                         locale={"en"}
                         timeZoneOffsetInMinutes={undefined}
                         modalTransparent={false}
@@ -72,7 +69,7 @@ class Fridge extends Component {
                         placeHolderText="Select Expiry Date"
                         textStyle={{ color: "green", fontSize: 18, alignSelf: 'center'  }}
                         placeHolderTextStyle={{ color: "#c2c2c2" }}
-                        onDateChange={this.setDate}
+                        onDateChange={date => this.props.fridgeFoodUpdate({ prop: 'expiry', date})}
                         disabled={false}
                     />
                     <Button
@@ -93,12 +90,13 @@ class Fridge extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     const fridgeFoods = _.map(state.fridgeFoods, (val, uid) => {
         return { ...val, uid };
     });
-    // const { name, expiry } = ; //???
-    return { fridgeFoods };
+    const { name, expiry } = state.addFridgeFoods;
+
+    return { fridgeFoods, name, expiry };
 };
 
 const styles = {
@@ -108,4 +106,8 @@ const styles = {
     }
 }
 
-export default connect(mapStateToProps, { fridgeFoodFetch })(Fridge);
+export default connect(mapStateToProps, { 
+    fridgeFoodFetch, 
+    fridgeFoodCreate,
+    fridgeFoodUpdate 
+})(Fridge);
