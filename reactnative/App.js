@@ -29,9 +29,7 @@ class App extends React.Component {
 
     return (
         <Provider store={store}>
-          <SafeAreaView style={{ flex: 1, backgroundColor: '#f2f2f2' }}>
-            <MyNavigator />
-          </SafeAreaView>
+          <MyNavigator />
         </Provider>
     );
   }
