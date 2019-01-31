@@ -8,7 +8,12 @@ import { fridgeFoodFetch, fridgeFoodCreate, fridgeFoodUpdate } from '../actions'
 import ListFridgeItem from '../containers/ListFridgeItem';
 
 class Fridge extends Component {
-    
+    constructor(props) {
+        super(props);
+        this.state = { chosenDate: new Date() };
+        this.setDate = this.setDate.bind(this);
+    }
+
     componentWillMount() {
         this.props.fridgeFoodFetch();
         this.createDataSource(this.props);
@@ -34,7 +39,13 @@ class Fridge extends Component {
     
     onButtonPress() {
         const { name, expiry } = this.props;
+        console.log(this.props.fridgeFood)
         this.props.fridgeFoodCreate({ name, expiry });
+    }
+
+    setDate(newDate) {
+        this.setState({ chosenDate: newDate });
+        this.props.fridgeFoodUpdate({ prop: 'expiry', newDate})
     }
 
     render() {
@@ -69,7 +80,7 @@ class Fridge extends Component {
                         placeHolderText="Select Expiry Date"
                         textStyle={{ color: "green", fontSize: 18, alignSelf: 'center'  }}
                         placeHolderTextStyle={{ color: "#c2c2c2" }}
-                        onDateChange={date => this.props.fridgeFoodUpdate({ prop: 'expiry', date})}
+                        onDateChange={this.setDate}
                         disabled={false}
                     />
                     <Button
