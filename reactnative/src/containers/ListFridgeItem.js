@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Touchable } from 'react-native';
+import { Text, View } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 import { CardSection } from '../common';
 
@@ -28,11 +28,8 @@ class ListFridgeItem extends Component {
             >
                 <View>
                     <CardSection>
-                        <Text style={styles.textStyle}>
-                            {name}
-                        </Text>
-                        <Text style={styles.textStyle}>
-                            {expiry}
+                        <Text style={styles.textStyle1}>
+                            {name} expires {expiry}
                         </Text>
                     </CardSection>
                 </View>
@@ -42,7 +39,13 @@ class ListFridgeItem extends Component {
 }
 
 const styles = {
-    textStyle: {
+    textStyle1: {
+        fontSize: 18,
+        paddingLeft: 15,
+        paddingTop: 3,
+        paddingBottom: 3
+    },
+    textStyle2: {
         fontSize: 18,
         paddingLeft: 15,
         paddingTop: 3,

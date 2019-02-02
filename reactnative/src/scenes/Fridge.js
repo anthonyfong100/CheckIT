@@ -2,12 +2,14 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, DatePicker } from 'native-base';
+import Moment from 'moment';
 
 import { connect } from 'react-redux';
 import { fridgeFoodFetch, fridgeFoodCreate, fridgeFoodUpdate } from '../actions';
 import ListFridgeItem from '../containers/ListFridgeItem';
 
 class Fridge extends Component {
+    
     constructor(props) {
         super(props);
         this.state = { chosenDate: new Date() };
@@ -39,13 +41,14 @@ class Fridge extends Component {
     
     onButtonPress() {
         const { name, expiry } = this.props;
-        console.log(this.props.fridgeFood)
         this.props.fridgeFoodCreate({ name, expiry });
     }
 
     setDate(newDate) {
         this.setState({ chosenDate: newDate });
-        this.props.fridgeFoodUpdate({ prop: 'expiry', newDate})
+        Moment.locale('en');
+        value = Moment(newDate).fromNow();
+        this.props.fridgeFoodUpdate({ prop: 'expiry', value });
     }
 
     render() {
