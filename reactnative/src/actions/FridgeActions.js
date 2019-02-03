@@ -1,8 +1,7 @@
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import '@firebase/database';
-import { FirebaseError } from '@firebase/util';
-import { Actions } from 'react-native-router-flux';
+
 import {
     FRIDGE_FOOD_CREATE,
     FRIDGE_FOOD_FETCH_SUCCESS,

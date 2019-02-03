@@ -1,8 +1,7 @@
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import '@firebase/database';
-import { FirebaseError } from '@firebase/util';
-import { Actions } from 'react-native-router-flux';
+
 import {
     SHOPPING_FOOD_CREATE,
     SHOPPING_FOOD_FETCH_SUCCESS,
@@ -34,7 +33,7 @@ export const shoppingFoodFetch = () => {
     const { currentUser } = firebase.auth();
 
     return (dispatch) => {
-        firebase.database().ref(`/user/${currentUser.uid}/shoppingFoods/`)
+        firebase.database().ref(`/users/${currentUser.uid}/shoppingFoods/`)
         .on('value', snapshot => {
             dispatch({ type: SHOPPING_FOOD_FETCH_SUCCESS, payload: snapshot.val()});
         });
@@ -58,10 +57,7 @@ export const shoppingFoodDelete = ({ uid }) => {
     const { currentUser } = firebase.auth();
 
     return () => {
-        FirebaseError.database().ref(`/user/${currentUser.uid}/shoppingFood/${uid}`)
-        .remove()
-        .then(() => {
-            
-        });
+        firebase.database().ref(`/users/${currentUser.uid}/shoppingFoods/${uid}`)
+        .remove();
     };
 };

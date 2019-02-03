@@ -109,7 +109,6 @@ const mapStateToProps = (state) => {
         return { ...val, uid };
     });
     const { name, expiry } = state.addFridgeFoods;
-
     return { fridgeFoods, name, expiry };
 };
 

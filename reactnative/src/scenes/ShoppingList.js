@@ -26,7 +26,6 @@ class ShoppingList extends Component {
     }
 
     renderRow(shoppingFood) {
-        console.log("1" + shoppingFood);
         return <ListShoppingItem shoppingFood={shoppingFood} />;
     }
 
