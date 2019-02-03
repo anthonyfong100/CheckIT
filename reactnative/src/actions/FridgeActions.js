@@ -58,10 +58,7 @@ export const fridgeFoodDelete = ({ uid }) => {
     const { currentUser } = firebase.auth();
 
     return () => {
-        FirebaseError.database().ref(`/user/${currentUser.uid}/fridgeFood/${uid}`)
-        .remove()
-        .then(() => {
-            // Actions.myFridge({ type: 'reset' }); // isit myFridge?
-        });
+        firebase.database().ref(`/users/${currentUser.uid}/fridgeFoods/${uid}`)
+        .remove();
     };
 };

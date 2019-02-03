@@ -7,36 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57192677-f372-4e2b-a0ca-e0e46fb6bd9f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reactnative/src/components/FridgeList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reactnative/src/containers/AddFridge.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reactnative/src/containers/ListFridgeItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reactnative/src/containers/ListShoppingItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reactnative/src/reducers/FridgeReducer1.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reactnative/src/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/app/src/main/assets/fonts/EvilIcons.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/app/src/main/assets/fonts/EvilIcons.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/app/src/main/assets/fonts/Feather.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/app/src/main/assets/fonts/Feather.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/app/src/main/assets/fonts/Ionicons.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/app/src/main/assets/fonts/Ionicons.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/app/src/main/assets/fonts/MaterialCommunityIcons.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/app/src/main/assets/fonts/MaterialCommunityIcons.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/app/src/main/assets/fonts/Octicons.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/app/src/main/assets/fonts/Octicons.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/android/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/ios/reactnative.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/ios/reactnative.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/ios/reactnative/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/ios/reactnative/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/src/Navigator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/src/actions/AuthActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/src/actions/AuthActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/src/actions/types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/src/reducers/AuthReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/src/reducers/AuthReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/src/scenes/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/src/scenes/SignIn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactnative/src/scenes/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactnative/src/scenes/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,8 +21,8 @@
       <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+            <state relative-caret-position="393">
+              <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -107,8 +78,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="25" />
+    <option name="x" value="-9" />
+    <option name="y" value="28" />
     <option name="width" value="1940" />
     <option name="height" value="1060" />
   </component>
@@ -117,6 +88,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -217,9 +191,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -300,23 +271,23 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
+    <frame x="-7" y="23" width="1550" height="848" extended-state="7" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31328487" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info id="Captures" order="2" weight="0.25" />
@@ -331,6 +302,161 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="59" selection-start-line="2" selection-start-column="59" selection-end-line="2" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="59" selection-start-line="2" selection-start-column="59" selection-end-line="2" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="60" column="11" lean-forward="true" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="59" selection-start-line="2" selection-start-column="59" selection-end-line="2" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="59" selection-start-line="2" selection-start-column="59" selection-end-line="2" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="59" selection-start-line="2" selection-start-column="59" selection-end-line="2" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
@@ -419,8 +545,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reactnative/android/app/src/main/java/com/reactnative/MainApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+        <state relative-caret-position="393">
+          <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
         </state>
       </provider>
     </entry>

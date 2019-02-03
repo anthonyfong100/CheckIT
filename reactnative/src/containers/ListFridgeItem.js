@@ -4,31 +4,30 @@ import { Text, View } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 import { CardSection } from '../common';
 
-import fridgeFoodDelete from '../actions';
+import { fridgeFoodDelete } from '../actions';
 
 import { connect } from 'react-redux';
 
 class ListFridgeItem extends Component {
-   
-    onButtonPress() {
-       const { uid } = this.props.fridgeFoods;
-       console.log(uid);
-       this.props.employeeDelete({ uid });
+    
+    deleteHandler({ uid }) {
+        this.props.fridgeFoodDelete({ uid })
     }
-   
-    render() {
-        const { name, expiry } = this.props.fridgeFood;
 
-        let swipeButtons = [{
+    render() {
+        const { name, expiry, uid } = this.props.fridgeFood;
+        
+        var swipeButtons = [{
             text: 'Eaten',
             backgroundColor: 'blue',
             underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
-            onPress: () => {this.onButtonPress.bind(this)}
+            onPress: () => this.deleteHandler({ uid })
           },
           {
             text: 'Disposed',
             backgroundColor: 'red',
             underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+            onPress: () => this.deleteHandler({ uid })
           }
         ];
 
@@ -52,12 +51,6 @@ class ListFridgeItem extends Component {
 
 const styles = {
     textStyle1: {
-        fontSize: 18,
-        paddingLeft: 15,
-        paddingTop: 3,
-        paddingBottom: 3
-    },
-    textStyle2: {
         fontSize: 18,
         paddingLeft: 15,
         paddingTop: 3,
