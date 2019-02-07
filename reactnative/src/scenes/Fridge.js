@@ -47,7 +47,7 @@ class Fridge extends Component {
     setDate(newDate) {
         this.setState({ chosenDate: newDate });
         Moment.locale('en');
-        value = Moment(newDate).fromNow();
+        value = Moment(newDate).format("D MMM YY");
         this.props.fridgeFoodUpdate({ prop: 'expiry', value });
     }
 

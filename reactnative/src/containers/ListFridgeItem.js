@@ -40,7 +40,7 @@ class ListFridgeItem extends Component {
                 <View>
                     <CardSection>
                         <Text style={styles.textStyle1}>
-                            {name} expires {expiry}
+                            {name} expires on {expiry}
                         </Text>
                     </CardSection>
                 </View>
