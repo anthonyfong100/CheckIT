@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "708556627645",
+    "firebase_url": "https://checkit-6682c.firebaseio.com",
+    "project_id": "checkit-6682c",
+    "storage_bucket": "checkit-6682c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708556627645:android:fde5a69760dae71d",
+        "android_client_info": {
+          "package_name": "com.reactnative"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708556627645-n45ogou8hnf7i1h0g401aj1q9dl3b94o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnKDYpEp1btnIGm4jhnagmA0CYpc6vHuU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
