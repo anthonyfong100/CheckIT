@@ -12,6 +12,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import org.reactnative.camera.RNCameraPackage;
+import com.fetchsky.RNTextDetector.RNTextDetectorPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +44,8 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new RNGestureHandlerPackage(),
             new RNCameraPackage(),
-            new FBSDKPackage(mCallbackManager)
+            new FBSDKPackage(mCallbackManager),
+            new RNTextDetectorPackage()
       );
     }
 
