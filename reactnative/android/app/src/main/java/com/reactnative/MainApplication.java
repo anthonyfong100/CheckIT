@@ -49,8 +49,8 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new RNGestureHandlerPackage(),
             new RNCameraPackage(),
-            new FBSDKPackage(mCallbackManager)
-            new RNFirebaseMessagingPackage()
+            new FBSDKPackage(mCallbackManager),
+            new RNFirebaseMessagingPackage(),
             new RNFirebaseNotificationsPackage()
       );
     }
