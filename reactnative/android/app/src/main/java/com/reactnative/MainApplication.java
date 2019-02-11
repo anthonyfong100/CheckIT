@@ -17,6 +17,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import org.reactnative.camera.RNCameraPackage;
+import com.fetchsky.RNTextDetector.RNTextDetectorPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +52,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNCameraPackage(),
             new FBSDKPackage(mCallbackManager),
             new RNFirebaseMessagingPackage(),
-            new RNFirebaseNotificationsPackage()
+            new RNFirebaseNotificationsPackage(),
+            new RNTextDetectorPackage(),
       );
     }
 
