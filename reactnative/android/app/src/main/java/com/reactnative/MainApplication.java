@@ -3,6 +3,7 @@ package com.reactnative;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.fetchsky.RNTextDetector.RNTextDetectorPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNTextDetectorPackage(),
             new VectorIconsPackage(),
             new RNGestureHandlerPackage(),
             new RNCameraPackage(),
