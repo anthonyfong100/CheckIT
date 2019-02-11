@@ -24,13 +24,13 @@
     "react-native-paper": "^2.4.0",
     "react-native-router-flux": "^4.0.6",
     "react-native-swipeout": "^2.3.6",
+    "react-native-text-detector": "git+https://github.com/zsajjad/react-native-text-detector.git",
     "react-native-vector-icons": "^6.1.0",
     "react-navigation": "^2.18.3",
     "react-navigation-material-bottom-tabs": "^0.1.2",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "react-native-text-detector": "https://github.com/zsajjad/react-native-text-detector"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",

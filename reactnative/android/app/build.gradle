@@ -141,6 +141,12 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-text-detector')
+    compile project(':react-native-gesture-handler')
+    compile project(':react-native-firebase')
+    compile project(':react-native-fbsdk')
+    compile project(':react-native-camera')
     implementation project(':react-native-firebase')
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-vector-icons')
@@ -163,8 +169,7 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging:17.3.4"
     implementation 'me.leolin:ShortcutBadger:1.1.21@aar' // <-- Add this line if you wish to use badge on Android
     implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation 'com.google.firebase:firebase-ml-vision:18.0.2'
-
+    implementation 'com.google.firebase:firebase-ml-vision:19.0.2'
     implementation (project(':react-native-text-detector')) {
         exclude group: 'com.google.firebase'
     }
