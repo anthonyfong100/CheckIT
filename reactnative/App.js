@@ -3,15 +3,14 @@ import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 
-// import firebase from '@firebase/app';
-import firebase from 'react-native-firebase';
+import firebase from '@firebase/app';
+// import firebase from 'react-native-firebase';
 
 import { MyNavigator } from './src/navigation/Navigator';
 import reducers from './src/reducers';
 
 class App extends React.Component {
   // initialise firebase app when main app initialises
-
   componentWillMount() {
     const config = {
       apiKey: 'AIzaSyAwegGBozZMVtyNy72JWgv2RGu6zZzzmhQ',
