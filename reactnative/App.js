@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 
-import firebase from '@firebase/app';
+import { firebase as fbase } from '@firebase/app';
 // import firebase from 'react-native-firebase';
 
 import { MyNavigator } from './src/navigation/Navigator';
@@ -20,7 +20,7 @@ class App extends React.Component {
       storageBucket: 'checkit-6682c.appspot.com',
       messagingSenderId: '708556627645'
     };
-    firebase.initializeApp(config);
+    fbase.initializeApp(config);
   }
 
   async componentDidMount() {
@@ -46,7 +46,7 @@ class App extends React.Component {
     // triggered when a particular notificaiton has been recieved in the foreground
     this.notificationListener = firebase.notifications().onNotification((notification) => {
       const { title, body } = notification;
-
+      console.log("on notification")
       const localNotification = new firebase.notifications.Notification({
         sound: 'sampleaudio',
         show_in_foreground: true,
