@@ -4,7 +4,7 @@ import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 
 import { firebase as fbase } from '@firebase/app';
-// import firebase from 'react-native-firebase';
+import firebase from 'react-native-firebase';
 
 import { MyNavigator } from './src/navigation/Navigator';
 import reducers from './src/reducers';
