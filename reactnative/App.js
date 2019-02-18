@@ -47,6 +47,9 @@ class App extends React.Component {
     this.notificationListener = firebase.notifications().onNotification((notification) => {
       const { title, body } = notification;
       console.log("on notification")
+      this.showAlert(title, body);
+      alert('message');
+      
       const localNotification = new firebase.notifications.Notification({
         sound: 'sampleaudio',
         show_in_foreground: true,
