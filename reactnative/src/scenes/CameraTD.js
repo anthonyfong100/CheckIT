@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { TouchableOpacity, View, ImageBackground, StyleSheet, Dimensions, Platform } from "react-native";
+import { TouchableOpacity, View, ImageBackground, StyleSheet, Dimensions, Platform, Image } from "react-native";
 import { RNCamera as Camera } from "react-native-camera";
 import RNTextDetector from "react-native-text-detector";
+import backButton from "./../../assets/backButton.png"
 
 
 const PICTURE_OPTIONS = {
@@ -78,6 +79,10 @@ const style = StyleSheet.create({
     borderRadius: 32,
     borderWidth: 4,
     borderColor: Colors.black
+  },
+  backButton: {
+    width: 64,
+    height: 64
   },
   boundingRect: {
     position: "absolute",
@@ -204,6 +209,12 @@ export default class CameraTD extends React.Component {
         };
       });
     };
+
+    handleBackButton = () => {
+      this.setState({
+        image: false
+      })
+    }
     
   
     /**
@@ -230,12 +241,15 @@ export default class CameraTD extends React.Component {
                   return null;
                 }
                 return (
-                  <View style={style.buttonContainer}>
-                    <TouchableOpacity
-                      onPress={() => this.takePicture(camera)}
-                      style={style.button}
-                    />
-                  </View>
+                  (<View>
+
+                    <View style={style.buttonContainer}>
+                      <TouchableOpacity
+                        onPress={() => this.takePicture(camera)}
+                        style={style.button}
+                      />
+                    </View>
+                  </View>)
                 );
               }}
             </Camera>
@@ -255,6 +269,10 @@ export default class CameraTD extends React.Component {
                   />
                 );
               })}
+              <TouchableOpacity style = {style.backButton} onPress ={() => this.handleBackButton()}>
+              <Image source = {require('./../../assets/backButton.png')}/>
+              </TouchableOpacity>
+
             </ImageBackground>
           ) : null}
         </View>
