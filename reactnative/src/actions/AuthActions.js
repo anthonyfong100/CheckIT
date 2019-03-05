@@ -29,6 +29,18 @@ export const passwordChanged = (text) => {
     };
 };
 
+// action for fb authentication registering to firebase
+// TODO fb registration not working
+// TODO function not being called
+export const loginUserFb = ({ credential }) => {
+    return (dispatch) => {
+        dispatch({ type: LOGIN_USER });
+        console.log("credential1", credential);
+        firebase.auth().signInAndRetrieveDataWithCredential(credential)
+        .then(user => loginUserSuccess(dispatch, user))
+        .catch(() => loginUserFail(dispatch));
+    };
+};
 
 // action for user trying to login (posts to firebase database)
 export const loginUser = ({ email, password }) => {
@@ -43,19 +55,6 @@ export const loginUser = ({ email, password }) => {
         });
     };
 };
-
-// action for fb authentication registering to firebase
-//TODO fb registration not working
-export const loginUserFb = (credential) => {
-    return (dispatch) => {
-        console.log(credential)
-        dispatch({ type: LOGIN_USER });
-        firebase.auth().signInAndRetrieveDataWithCredential(credential)
-        .then(user => loginUserSuccess(dispatch, user))
-        .catch(() => loginUserFail(dispatch));
-    }
-}
-
 
 // action for login user fail
 export const loginUserFail = (dispatch) => {

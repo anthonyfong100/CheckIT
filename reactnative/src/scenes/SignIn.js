@@ -70,11 +70,11 @@ class SignIn extends Component {
         console.log('login was cancelled');
       } else {
         console.log('login was a success: ' + result.grantedPermissions.toString());
-       
         AccessToken.getCurrentAccessToken()
         .then((data) => {
           const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken) 
           loginUserFb(credential)
+          // console.log(credential)
         })
       }
     }, function(error) {
@@ -109,8 +109,6 @@ class SignIn extends Component {
           
           {this.renderError()}
           {this.renderSignInButton()}
-          
-          
 
           <Button style={{ marginTop:10 }}
             full

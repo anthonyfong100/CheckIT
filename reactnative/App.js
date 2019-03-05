@@ -9,7 +9,20 @@ import firebase from 'react-native-firebase';
 import { MyNavigator } from './src/navigation/Navigator';
 import reducers from './src/reducers';
 
+// import PushNotification from 'react-native-push-notification';
+// import PushController from './src/PushController';
+
 class App extends React.Component {
+  /*
+  constructor(props) {
+    super(props);
+    this.handleAppStateChange = this.handleAppStateChange.bind(this);
+    this.state = {
+
+    };
+  }
+  */
+
   // initialise firebase app when main app initialises
   componentWillMount() {
     const config = {
@@ -22,6 +35,19 @@ class App extends React.Component {
     };
     fbase.initializeApp(config);
   }
+  /*
+  componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange(appState) {
+
+  }
+  */
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
@@ -29,6 +55,7 @@ class App extends React.Component {
     return (
         <Provider store={store}>
           <MyNavigator />
+          {/* <PushController /> */}
         </Provider>
     );
   }
