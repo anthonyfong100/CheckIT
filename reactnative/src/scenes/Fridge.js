@@ -55,11 +55,11 @@ class Fridge extends Component {
         return (
             <Container style={styles.container}>
                 <Header
-                    style={{ backgroundColor: '#f2f2f2' }}
+                    style={{ backgroundColor: '#5BB85D' }}
                     androidStatusBarColor="#000"
                 >
                     <Body>
-                        <Title style={{ color: '#000' }}>My Fridge</Title>
+                        <Title style={{ color: '#fff' }}>My Fridge</Title>
                     </Body>
                 </Header>
                 <Content style={{ flex: 1, backgroundColor: '#fff', marginTop: 5 }}>

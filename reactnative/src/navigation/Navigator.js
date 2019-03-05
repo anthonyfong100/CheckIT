@@ -49,11 +49,11 @@ class RecipeScreen extends Component {
         return (
             <Container style={styles.container}>
                 <Header
-                    style={{ backgroundColor: '#f2f2f2' }}
+                    style={{ backgroundColor: '#5BB85D' }}
                     androidStatusBarColor="#000000"
                 >
                 <Body>
-                    <Title style={{ color: '#000000' }}>Recipes</Title>
+                    <Title style={{ color: '#ffffff' }}>Recipes</Title>
                 </Body>
                 </Header>
                 <Content style={styles.container}>
