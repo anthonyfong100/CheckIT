@@ -7,8 +7,6 @@ import { Spinner } from "../common";
 import firebase from '@firebase/app';
 import '@firebase/auth';
 
-import FBSDK, { LoginManager, AccessToken } from 'react-native-fbsdk';
-
 class SignIn extends Component {
   
   componentDidUpdate () {
@@ -29,6 +27,11 @@ class SignIn extends Component {
   onButtonPress() {
       const { email, password } = this.props;
       this.props.loginUser({ email, password });
+  }
+
+  
+  onFBButtonPress() {
+    this.props.loginUserFb()
   }
 
   renderError() {
@@ -63,24 +66,7 @@ class SignIn extends Component {
     )
   }
 
-  async _fbAuth() {
-    LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
-      
-      if (result.isCancelled) {
-        console.log('login was cancelled');
-      } else {
-        console.log('login was a success: ' + result.grantedPermissions.toString());
-        AccessToken.getCurrentAccessToken()
-        .then((data) => {
-          const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken) 
-          loginUserFb(credential)
-          // console.log(credential)
-        })
-      }
-    }, function(error) {
-      console.log('An error occured: ' + error); 
-    })
-  }
+
 
   render() {
     return (
@@ -114,7 +100,7 @@ class SignIn extends Component {
             full
             rounded
             primary
-            onPress={() => this._fbAuth()}
+            onPress={this.onFBButtonPress.bind(this)}
           >
             <Text style={{ color: '#fff' }}>Log In with Facebook</Text>
           </Button>

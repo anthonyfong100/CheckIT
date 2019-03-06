@@ -49,11 +49,11 @@ class RecipeScreen extends Component {
         return (
             <Container style={styles.container}>
                 <Header
-                    style={{ backgroundColor: '#5BB85D' }}
+                    style={{ backgroundColor: '#f2f2f2' }}
                     androidStatusBarColor="#000000"
                 >
                 <Body>
-                    <Title style={{ color: '#ffffff' }}>Recipes</Title>
+                    <Title style={{ color: '#000' }}>Recipes</Title>
                 </Body>
                 </Header>
                 <Content style={styles.container}>
@@ -96,7 +96,7 @@ export const SignedInNavigator = createMaterialTopTabNavigator (
         tabBarPosition: 'bottom',
         unmountInactiveRoutes: true,
         initialRouteName: 'Fridge',
-        swipeEnabled: false,
+        swipeEnabled: true,
         animationEnabled: true,
         navigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ tintColor }) => {

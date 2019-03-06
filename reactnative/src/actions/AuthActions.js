@@ -10,7 +10,7 @@ import {
     LOGIN_USER
 } from './types';
 
-
+import FBSDK, { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 // action for changing typing email in login form
 export const emailChanged = (text) => {
@@ -32,13 +32,27 @@ export const passwordChanged = (text) => {
 // action for fb authentication registering to firebase
 // TODO fb registration not working
 // TODO function not being called
-export const loginUserFb = ({ credential }) => {
+export const loginUserFb = () => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
-        console.log("credential1", credential);
-        firebase.auth().signInAndRetrieveDataWithCredential(credential)
-        .then(user => loginUserSuccess(dispatch, user))
-        .catch(() => loginUserFail(dispatch));
+        LoginManager.logInWithReadPermissions(['public_profile'])
+        .then(function(result){
+            if (result.isCancelled) {
+                console.log("login was cancelled");
+            } else {
+                console.log('login was a success: ', + result.grantedPermissions.toString());
+                AccessToken.getCurrentAccessToken()
+                .then((data) => {
+                    const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken)
+                    firebase.auth().signInAndRetrieveDataWithCredential(credential)
+                    .then(user => loginUserSuccess(dispatch, user))
+                    .catch(() => loginUserFail(dispatch));
+                })
+            }
+        }, function(error) {
+            console.log('An error occured: ' + error );
+        })
+
     };
 };
 

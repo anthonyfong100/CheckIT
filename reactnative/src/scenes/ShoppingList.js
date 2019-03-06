@@ -38,11 +38,11 @@ class ShoppingList extends Component {
         return(
             <Container style={styles.container}>
                 <Header
-                    style={{ backgroundColor: '#5BB85D' }}
+                    style={{ backgroundColor: '#f2f2f2' }}
                     androidStatusBarColor="#000"
                 >
                     <Body>
-                        <Title style={{ color: '#fff' }}>My Shopping List</Title>
+                        <Title style={{ color: '#000' }}>My Shopping List</Title>
                     </Body>
                 </Header>
                 <Content style={{ flex: 1, backgroundColor: '#fff', marginTop: 5 }}>
