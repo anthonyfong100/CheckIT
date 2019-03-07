@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">reactnative</string>
     <string name="facebook_app_id">224946605077751</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 </resources>

@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { Container, Header, Body, Title, Content } from 'native-base';
 
 import CameraScreen from '../common/CameraScreen';
+import CameraTD from '../scenes/CameraTD';
 import ShoppingList from '../scenes/ShoppingList';
 import Fridge from '../scenes/Fridge';
 import Recipe from '../scenes/Recipe';
@@ -52,7 +53,7 @@ class RecipeScreen extends Component {
                     androidStatusBarColor="#000000"
                 >
                 <Body>
-                    <Title style={{ color: '#000000' }}>Recipes</Title>
+                    <Title style={{ color: '#000' }}>Recipes</Title>
                 </Body>
                 </Header>
                 <Content style={styles.container}>
@@ -80,7 +81,7 @@ export const SignedInNavigator = createMaterialTopTabNavigator (
                 title: "Shopping List"
             }
         },
-        CameraScreen: { screen: CameraScreen,
+        CameraScreen: { screen: CameraTD,
             navigationOptions: {
                 tabBarLabel: 'Camera'
             }
@@ -95,7 +96,7 @@ export const SignedInNavigator = createMaterialTopTabNavigator (
         tabBarPosition: 'bottom',
         unmountInactiveRoutes: true,
         initialRouteName: 'Fridge',
-        swipeEnabled: false,
+        swipeEnabled: true,
         animationEnabled: true,
         navigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ tintColor }) => {

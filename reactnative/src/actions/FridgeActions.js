@@ -33,7 +33,8 @@ export const fridgeFoodFetch = () => {
     const { currentUser } = firebase.auth();
 
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/fridgeFoods/`)
+        firebase.database().ref(`/users/${currentUser.uid}/fridgeFoods`)
+        .orderByValue()
         .on('value', snapshot => {
             dispatch({ type: FRIDGE_FOOD_FETCH_SUCCESS, payload: snapshot.val() });
         });

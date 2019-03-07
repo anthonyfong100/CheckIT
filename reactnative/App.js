@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import firebase from '@firebase/app';
-import reducers from './src/reducers';
 import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
-import { SafeAreaView } from 'react-native';
+
+import { firebase as fbase } from '@firebase/app';
+import firebase from 'react-native-firebase';
+
 import { MyNavigator } from './src/navigation/Navigator';
+import reducers from './src/reducers';
+
+// import PushNotification from 'react-native-push-notification';
+// import PushController from './src/PushController';
 
 class App extends React.Component {
-  // initialise firebase app when main app initialises
+  /*
+  constructor(props) {
+    super(props);
+    this.handleAppStateChange = this.handleAppStateChange.bind(this);
+    this.state = {
 
+    };
+  }
+  */
+
+  // initialise firebase app when main app initialises
   componentWillMount() {
     const config = {
       apiKey: 'AIzaSyAwegGBozZMVtyNy72JWgv2RGu6zZzzmhQ',
@@ -19,17 +33,29 @@ class App extends React.Component {
       storageBucket: 'checkit-6682c.appspot.com',
       messagingSenderId: '708556627645'
     };
-    firebase.initializeApp(config);
+    fbase.initializeApp(config);
   }
+  /*
+  componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange(appState) {
+
+  }
+  */
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
-    // const Layout = MyNavigator;
-
     return (
         <Provider store={store}>
           <MyNavigator />
+          {/* <PushController /> */}
         </Provider>
     );
   }
