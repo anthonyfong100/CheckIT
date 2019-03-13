@@ -22,6 +22,12 @@ class ListShoppingItem extends Component {
             backgroundColor: 'blue',
             underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
             onPress: () => this.deleteHandler({ uid })
+          },
+          {
+            text: 'Remove',
+            backgroundColor: 'red',
+            underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+            onPress: () => this.deleteHandler({ uid })
           }
         ];
 
