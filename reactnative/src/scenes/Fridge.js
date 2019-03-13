@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
-import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, DatePicker } from 'native-base';
+import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, DatePicker, Right } from 'native-base';
 import Moment from 'moment';
 
 import { connect } from 'react-redux';
@@ -61,6 +61,14 @@ class Fridge extends Component {
                     <Body>
                         <Title style={{ color: '#000' }}>My Fridge</Title>
                     </Body>
+                    <Right>
+                        <Button
+                        light
+                        rounded
+                        >
+                            <Icon name="ios-information-circle-outline" />
+                        </Button>
+                    </Right>
                 </Header>
                 <Content style={{ flex: 1, backgroundColor: '#fff', marginTop: 5 }}>
                 
@@ -87,6 +95,7 @@ class Fridge extends Component {
                         disabled={false}
                     />
                     <Button
+                        rounded
                         onPress={this.onButtonPress.bind(this)}
                     >
                         <Icon name="add" />

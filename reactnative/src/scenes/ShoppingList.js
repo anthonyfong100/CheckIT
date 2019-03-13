@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
-import { Container, Header, Body, Title, Content, Button, Icon, Input, Item } from 'native-base';
+import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, Right } from 'native-base';
 
 import { connect } from 'react-redux';
 import { shoppingFoodFetch, shoppingFoodCreate, shoppingFoodUpdate } from '../actions';
@@ -44,6 +44,13 @@ class ShoppingList extends Component {
                     <Body>
                         <Title style={{ color: '#000' }}>My Shopping List</Title>
                     </Body>
+                    <Right>
+                        <Button 
+                        light
+                        rounded>
+                            <Icon name='md-cart' style={{ color: '#4DAD4A'}} />
+                        </Button>
+                    </Right>
                 </Header>
                 <Content style={{ flex: 1, backgroundColor: '#fff', marginTop: 5 }}>
                 
@@ -55,6 +62,7 @@ class ShoppingList extends Component {
                         onChangeText={value => this.props.shoppingFoodUpdate({ prop: 'name', value })}
                     />
                     <Button
+                        rounded
                         onPress={this.onButtonPress.bind(this)}
                     >
                         <Icon name="add" />

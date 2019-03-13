@@ -96,7 +96,7 @@ export const SignedInNavigator = createMaterialTopTabNavigator (
         tabBarPosition: 'bottom',
         unmountInactiveRoutes: true,
         initialRouteName: 'Fridge',
-        swipeEnabled: true,
+        swipeEnabled: false,
         animationEnabled: true,
         navigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ tintColor }) => {
