@@ -42,7 +42,7 @@ class ShoppingList extends Component {
                     androidStatusBarColor="#000"
                 >
                     <Body>
-                        <Title style={{ color: '#000' }}>My Shopping List</Title>
+                        <Title style={{ color: '#000' }}>Suggested Shopping List</Title>
                     </Body>
                     <Right>
                         <Button 
