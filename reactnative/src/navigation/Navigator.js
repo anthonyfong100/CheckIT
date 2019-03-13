@@ -117,7 +117,7 @@ export const SignedInNavigator = createMaterialTopTabNavigator (
         }),
         tabBarOptions: {
             showLabel: false,
-            activeTintColor: 'orange',
+            activeTintColor: '#4DAD4A',
             inactiveTintColor: 'grey',
             style: {
                 backgroundColor: '#f2f2f2'

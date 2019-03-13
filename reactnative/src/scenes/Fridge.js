@@ -72,7 +72,8 @@ class Fridge extends Component {
                 </Header>
                 <Content style={{ flex: 1, backgroundColor: '#fff', marginTop: 5 }}>
                 
-                <Item>
+                <Item
+                style = {{ paddingEnd: 10}}>
                     <Input 
                         label="Item"
                         placeholder="Add Item"
@@ -96,6 +97,7 @@ class Fridge extends Component {
                     />
                     <Button
                         rounded
+                        success
                         onPress={this.onButtonPress.bind(this)}
                     >
                         <Icon name="add" />

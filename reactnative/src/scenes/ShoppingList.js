@@ -42,7 +42,7 @@ class ShoppingList extends Component {
                     androidStatusBarColor="#000"
                 >
                     <Body>
-                        <Title style={{ color: '#000' }}>Suggested Shopping List</Title>
+                        <Title style={{ color: '#000' }}>My Shopping List</Title>
                     </Body>
                     <Right>
                         <Button 
@@ -54,7 +54,9 @@ class ShoppingList extends Component {
                 </Header>
                 <Content style={{ flex: 1, backgroundColor: '#fff', marginTop: 5 }}>
                 
-                <Item>
+                <Item
+                style = {{ paddingEnd: 10}}
+                >
                     <Input 
                         label="Item"
                         placeholder="Add Item"
@@ -63,6 +65,7 @@ class ShoppingList extends Component {
                     />
                     <Button
                         rounded
+                        success
                         onPress={this.onButtonPress.bind(this)}
                     >
                         <Icon name="add" />
