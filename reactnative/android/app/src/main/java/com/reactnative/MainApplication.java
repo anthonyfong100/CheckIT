@@ -5,6 +5,20 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.fetchsky.RNTextDetector.RNTextDetectorPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import io.invertase.firebase.RNFirebasePackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import org.reactnative.camera.RNCameraPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.fetchsky.RNTextDetector.RNTextDetectorPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import io.invertase.firebase.RNFirebasePackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import org.reactnative.camera.RNCameraPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.fetchsky.RNTextDetector.RNTextDetectorPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import org.reactnative.camera.RNCameraPackage;
@@ -52,13 +66,13 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new VectorIconsPackage(),
+            new RNTextDetectorPackage(),
+            new ReactNativePushNotificationPackage(),
             new RNGestureHandlerPackage(),
             new RNFirebasePackage(),
             new RNCameraPackage(),
             new FBSDKPackage(mCallbackManager),
-            new RNFirebaseMessagingPackage(),
-            new RNFirebaseNotificationsPackage(),
-            new RNTextDetectorPackage()
+            new RNFirebaseMessagingPackage()
       );
     }
 
