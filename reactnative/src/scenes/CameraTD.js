@@ -99,6 +99,13 @@ const style = StyleSheet.create({
     height: 64,
     position: 'absolute',
     top: 0,
+    left: 0
+  },
+  confirmButtonContainer: {
+    width: 64,
+    height: 64,
+    position: 'absolute',
+    top: 0,
     left: 64
   }
 })
@@ -228,11 +235,12 @@ export default class CameraTD extends React.Component {
    */
 
   /* API call handler */
-  onPressAPICall = (data) => { //need to pass the message into this function
+  onPressAPICall = (data) => {
     axios.post('https://us-central1-checkit-6682c.cloudfunctions.net/expiry', data)
       .then(res => console.log(res))
       .catch(err => console.log(err))
   }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -278,16 +286,22 @@ export default class CameraTD extends React.Component {
               );
             })}
             <TouchableOpacity
-              onPress={() => this.setState({ image: false })}>
-              <Image source={require("./../../assets/left-arrow.png")}
+              onPress={() => this.setState({ image: false })}
+              style={style.backButton}
+            >
+              < Image source={require("./../../assets/left-arrow.png")}
                 style={style.backButton} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigate("Frdige")}>
-              <Image source={require("./../../assets/plus-button.png")}
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("Fridge")}
+              style={style.confirmButtonContainer}
+            >
+              < Image source={require("./../../assets/plus-button.png")}
                 style={style.confirmButton} />
             </TouchableOpacity>
           </ImageBackground>
-        ) : null}
+        ) : null
+        }
       </View>
     );
   }
