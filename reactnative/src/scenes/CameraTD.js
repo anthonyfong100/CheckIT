@@ -189,6 +189,7 @@ export default class CameraTD extends React.Component {
   processImage = async (uri, imageProperties) => {
     const visionResp = await RNTextDetector.detectFromUri(uri);
     console.log(visionResp);
+    refactorObject(visionResp);
     if (!(visionResp && visionResp.length > 0)) {
       throw "UNMATCHED";
     }
@@ -226,6 +227,10 @@ export default class CameraTD extends React.Component {
     });
   };
 
+  refactorObject(visionResp) {
+    listItems = Object.values(visionResp.text);
+    console.log("from refactor" + listItems)
+  }
 
   /**
    * React Native render function
@@ -235,14 +240,18 @@ export default class CameraTD extends React.Component {
    */
 
   /* API call handler */
-  onPressAPICall = (data) => {
+  onPressAPICall = () => {
+    const data = this.state.visionResp;
+    console.log("from apicall" + data);
     axios.post('https://us-central1-checkit-6682c.cloudfunctions.net/expiry', data)
-      .then(res => console.log(res))
+      .then(res => console.log(res)) // TODO save each item and expiry to fridge
       .catch(err => console.log(err))
-  }
+  };
+
+  // TODO create a function to refactor visionresp json into list
+
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={style.screen}>
         {!this.state.image ? (
@@ -293,7 +302,11 @@ export default class CameraTD extends React.Component {
                 style={style.backButton} />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Fridge")}
+              onPress={() => {
+                this.props.navigation.navigate("Fridge");
+                this.onPressAPICall();
+                this.setState({ image: false });
+              }}
               style={style.confirmButtonContainer}
             >
               < Image source={require("./../../assets/plus-button.png")}
