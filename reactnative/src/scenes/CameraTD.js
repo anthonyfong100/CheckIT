@@ -189,13 +189,15 @@ export default class CameraTD extends React.Component {
   processImage = async (uri, imageProperties) => {
     const visionResp = await RNTextDetector.detectFromUri(uri);
     console.log(visionResp);
-    refactorObject(visionResp);
+    this.setState({ visionResp: visionResp })
+
     if (!(visionResp && visionResp.length > 0)) {
       throw "UNMATCHED";
+    } else {
+      this.setState({
+        visionResp: this.mapVisionRespToScreen(visionResp, imageProperties)
+      });
     }
-    this.setState({
-      visionResp: this.mapVisionRespToScreen(visionResp, imageProperties)
-    });
   };
 
   /**
@@ -240,10 +242,22 @@ export default class CameraTD extends React.Component {
    */
 
   /* API call handler */
-  onPressAPICall = () => {
-    const data = this.state.visionResp;
-    console.log("from apicall" + data);
-    axios.post('https://us-central1-checkit-6682c.cloudfunctions.net/expiry', data)
+  onPressAPICall = (text) => {
+    delete text.bounding;
+    console.log(text)
+    var text = text.text
+    var foodData = text.split("\n")
+    var data = ""
+
+    for (key in foodData) {
+      data = data + '"' + foodData[key] + '"' + ","
+    }
+    console.log(data)
+    console.log(typeof data)
+
+    const req = "https://us-central1-checkit-6682c.cloudfunctions.net/expiry?text=[" + data + "]"
+    console.log(req)
+    axios.get(req)
       .then(res => console.log(res)) // TODO save each item and expiry to fridge
       .catch(err => console.log(err))
   };
@@ -252,6 +266,12 @@ export default class CameraTD extends React.Component {
 
 
   render() {
+    const visionResp = this.state.visionResp;
+    for (key in visionResp) {
+      if (visionResp.hasOwnProperty(key)) {
+        var text = visionResp[key];
+      }
+    }
     return (
       <View style={style.screen}>
         {!this.state.image ? (
@@ -304,7 +324,7 @@ export default class CameraTD extends React.Component {
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate("Fridge");
-                this.onPressAPICall();
+                this.onPressAPICall(text);
                 this.setState({ image: false });
               }}
               style={style.confirmButtonContainer}
