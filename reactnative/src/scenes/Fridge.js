@@ -7,12 +7,13 @@ import Moment from 'moment';
 import { connect } from 'react-redux';
 import { fridgeFoodFetch, fridgeFoodCreate, fridgeFoodUpdate } from '../actions';
 import ListFridgeItem from '../containers/ListFridgeItem';
+import TutorialModal from '../components/TutorialModal';
 
 class Fridge extends Component {
     
     constructor(props) {
         super(props);
-        this.state = { chosenDate: new Date() };
+        this.state = { chosenDate: new Date(), modalSetUp: false};
         this.setDate = this.setDate.bind(this);
     }
 
@@ -54,6 +55,7 @@ class Fridge extends Component {
     render() {
         return (
             <Container style={styles.container}>
+                <TutorialModal fridgeModal = {this.state.modalSetUp}/>
                 <Header
                     style={{ backgroundColor: '#f2f2f2' }}
                     androidStatusBarColor="#000"
@@ -65,6 +67,7 @@ class Fridge extends Component {
                         <Button
                         light
                         rounded
+                        onPress = {() => {this.setState({modalSetUp: true})}}
                         >
                             <Icon name="ios-information-circle-outline" />
                         </Button>
