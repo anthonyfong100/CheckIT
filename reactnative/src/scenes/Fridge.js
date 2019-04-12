@@ -1,18 +1,22 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
-import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, DatePicker, Right } from 'native-base';
+import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, DatePicker, Right, View } from 'native-base';
 import Moment from 'moment';
 
 import { connect } from 'react-redux';
 import { fridgeFoodFetch, fridgeFoodCreate, fridgeFoodUpdate } from '../actions';
 import ListFridgeItem from '../containers/ListFridgeItem';
+import { TutorialModal } from '../components/TutorialModal';
 
 class Fridge extends Component {
-    
+
     constructor(props) {
         super(props);
-        this.state = { chosenDate: new Date() };
+        this.state = {
+            chosenDate: new Date(),
+            modalSetUp: false,
+        };
         this.setDate = this.setDate.bind(this);
     }
 
@@ -27,7 +31,7 @@ class Fridge extends Component {
         this.props is the old set of props*/
         this.createDataSource(nextProps);
     }
-    
+
     createDataSource({ fridgeFoods }) {
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
@@ -38,7 +42,7 @@ class Fridge extends Component {
     renderRow(fridgeFood) {
         return <ListFridgeItem fridgeFood={fridgeFood} />;
     }
-    
+
     onButtonPress() {
         const { name, expiry } = this.props;
         this.props.fridgeFoodCreate({ name, expiry });
@@ -54,6 +58,7 @@ class Fridge extends Component {
     render() {
         return (
             <Container style={styles.container}>
+                <TutorialModal fridgeModal={this.state.modalSetUp} />
                 <Header
                     style={{ backgroundColor: '#f2f2f2' }}
                     androidStatusBarColor="#000"
@@ -63,52 +68,55 @@ class Fridge extends Component {
                     </Body>
                     <Right>
                         <Button
-                        light
-                        rounded
+                            light
+                            rounded
+                            onPress={() => {
+                                this.setState({ modalSetUp: true })
+                            }}
                         >
                             <Icon name="ios-information-circle-outline" />
                         </Button>
                     </Right>
                 </Header>
+
                 <Content style={{ flex: 1, backgroundColor: '#fff', marginTop: 5 }}>
-                
-                <Item
-                style = {{ paddingEnd: 10}}>
-                    <Input 
-                        label="Item"
-                        placeholder="Add Item"
-                        value={this.props.name}
-                        onChangeText={value => this.props.fridgeFoodUpdate({ prop: 'name', value })}
+                    <Item
+                        style={{ paddingEnd: 10 }}>
+                        <Input
+                            label="Item"
+                            placeholder="Add Item"
+                            value={this.props.name}
+                            onChangeText={value => this.props.fridgeFoodUpdate({ prop: 'name', value })}
+                        />
+                        <DatePicker
+                            defaultDate={new Date(2019, 4, 4)}
+                            minimumDate={new Date(2019, 1, 1)}
+                            maximumDate={new Date(2100, 12, 31)}
+                            locale={"en"}
+                            timeZoneOffsetInMinutes={undefined}
+                            modalTransparent={false}
+                            animationType={"fade"}
+                            androidMode={"default"}
+                            placeHolderText="Select Expiry Date"
+                            textStyle={{ color: "green", fontSize: 18, alignSelf: 'center' }}
+                            placeHolderTextStyle={{ color: "#c2c2c2" }}
+                            onDateChange={this.setDate}
+                            disabled={false}
+                        />
+                        <Button
+                            rounded
+                            success
+                            onPress={this.onButtonPress.bind(this)}
+                        >
+                            <Icon name="add" />
+                        </Button>
+                    </Item>
+
+                    <ListView
+                        enableEmptySections
+                        dataSource={this.dataSource}
+                        renderRow={this.renderRow}
                     />
-                    <DatePicker
-                        defaultDate={new Date(2019, 4, 4)}
-                        minimumDate={new Date(2019, 1, 1)}
-                        maximumDate={new Date(2100, 12, 31)}
-                        locale={"en"}
-                        timeZoneOffsetInMinutes={undefined}
-                        modalTransparent={false}
-                        animationType={"fade"}
-                        androidMode={"default"}
-                        placeHolderText="Select Expiry Date"
-                        textStyle={{ color: "green", fontSize: 18, alignSelf: 'center'  }}
-                        placeHolderTextStyle={{ color: "#c2c2c2" }}
-                        onDateChange={this.setDate}
-                        disabled={false}
-                    />
-                    <Button
-                        rounded
-                        success
-                        onPress={this.onButtonPress.bind(this)}
-                    >
-                        <Icon name="add" />
-                    </Button>
-                </Item>
-               
-                <ListView
-                    enableEmptySections
-                    dataSource={this.dataSource}
-                    renderRow={this.renderRow}
-                />
                 </Content>
             </Container>
         );
@@ -130,8 +138,8 @@ const styles = {
     }
 }
 
-export default connect(mapStateToProps, { 
-    fridgeFoodFetch, 
+export default connect(mapStateToProps, {
+    fridgeFoodFetch,
     fridgeFoodCreate,
-    fridgeFoodUpdate 
+    fridgeFoodUpdate
 })(Fridge);
