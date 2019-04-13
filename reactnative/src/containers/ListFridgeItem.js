@@ -7,6 +7,7 @@ import { CardSection } from '../common';
 import { fridgeFoodDelete } from '../actions';
 
 import { connect } from 'react-redux';
+import moment from 'moment'
 
 class ListFridgeItem extends Component {
 
@@ -31,6 +32,8 @@ class ListFridgeItem extends Component {
         }
         ];
 
+        expirydate = moment(expiry, "MMMM Do YYYY").fromNow();
+
         return (
             <Swipeout
                 right={swipeButtons}
@@ -40,7 +43,7 @@ class ListFridgeItem extends Component {
                 <View>
                     <CardSection>
                         <Text style={styles.textStyle1}>
-                            {name} expires in {expiry}
+                            {name} expires {expirydate}
                         </Text>
                     </CardSection>
                 </View>

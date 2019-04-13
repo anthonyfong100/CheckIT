@@ -225,7 +225,6 @@ export default class CameraTD extends Component {
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate("Fridge");
-                // this.setState({ confirm: true })
                 //this.state.confirm ? (<TextDetectSave text={text} />) : null
                 this.setState({ image: false });
               }}

@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { cameraFoodCreate, cameraFoodUpdate } from '../actions';
 
-import axios from 'react-native-axios'
+import axios from 'react-native-axios';
+import moment from "moment";
 
 class TextDetectSave extends Component {
     constructor(props) {
@@ -29,6 +30,21 @@ class TextDetectSave extends Component {
                     for (key2 in results[key1]) {
                         const name = results[key1][key2]["Name"]
                         const expiry = results[key1][key2]["Refrigerator"]
+                        /*
+                        if (results[key1][key2]["Refrigerator"] != "unspecified") {
+                            const expiry = results[key1][key2]["Refrigerator"];
+
+                        }
+                        else if (results[key1][key2]["Pantry"] != "unspecified") {
+                            const expiry = results[key1][key2]["Pantry"]
+
+                        }
+                        else if (results[key1][key2]["Freezer"] != "unspecified") {
+                            const expiry = results[key1][key2]["Freezer"]
+                        }
+                        else {
+                            const expiry = "1 day"
+                        }*/
 
                         for (var i = 0; i < name.length; i++) {
                             if (name[i] == ',') {
@@ -36,7 +52,20 @@ class TextDetectSave extends Component {
                                 break
                             }
                         }
-                        console.log(name)
+
+                        name = name.toLowerCase()
+
+                        // to create a function that takes current date, and expiry duration, and output the expiry date
+                        //  var now = new Date();
+                        for (var i = 0; i < expiry.length; i++) {
+                            if (expiry[i] == ' ') {
+                                expiry = expiry.slice(0, i)
+                                break
+                            }
+                        }
+
+                        var expirystring = moment().add(1, 'days')
+                        var expiry = JSON.stringify(moment().format("MMMM Do YYYY"))
                         console.log(expiry)
                         this.props.cameraFoodCreate({ name, expiry });
                     }
