@@ -29,22 +29,33 @@ class TextDetectSave extends Component {
                 for (key1 in results) {
                     for (key2 in results[key1]) {
                         const name = results[key1][key2]["Name"]
-                        const expiry = results[key1][key2]["Refrigerator"]
-                        /*
-                        if (results[key1][key2]["Refrigerator"] != "unspecified") {
-                            const expiry = results[key1][key2]["Refrigerator"];
+
+                        if (String(results[key1][key2]["Refrigerator"]).includes("unspecified") == false) {
+                            var expiry = results[key1][key2]["Refrigerator"];
+                        }
+                        else if (String(results[key1][key2]["Pantry"]).includes("unspecified") == false) {
+                            var expiry = results[key1][key2]["Pantry"];
 
                         }
-                        else if (results[key1][key2]["Pantry"] != "unspecified") {
-                            const expiry = results[key1][key2]["Pantry"]
-
-                        }
-                        else if (results[key1][key2]["Freezer"] != "unspecified") {
-                            const expiry = results[key1][key2]["Freezer"]
+                        else if (String(results[key1][key2]["Freezer"]).includes("unspecified") == false) {
+                            var expiry = results[key1][key2]["Freezer"];
                         }
                         else {
-                            const expiry = "1 day"
-                        }*/
+                            var expiry = "2 day"
+                        }
+
+                        if (String(expiry).includes("day") == true) {
+                            var unit = "days"
+                        } else if (String(expiry).includes("week") == true) {
+                            var unit = "weeks"
+                        } else if (String(expiry).includes("month") == true) {
+                            var unit = "months"
+                        } else if (String(expiry).includes("year") == true) {
+                            var unit = "years"
+                        } else {
+                            var unit = "days"
+                        }
+
 
                         for (var i = 0; i < name.length; i++) {
                             if (name[i] == ',') {
@@ -55,8 +66,6 @@ class TextDetectSave extends Component {
 
                         name = name.toLowerCase()
 
-                        // to create a function that takes current date, and expiry duration, and output the expiry date
-                        //  var now = new Date();
                         for (var i = 0; i < expiry.length; i++) {
                             if (expiry[i] == ' ') {
                                 expiry = expiry.slice(0, i)
@@ -64,9 +73,8 @@ class TextDetectSave extends Component {
                             }
                         }
 
-                        var expirystring = moment().add(1, 'days')
-                        var expiry = JSON.stringify(moment().format("MMMM Do YYYY"))
-                        console.log(expiry)
+                        var expirystring = moment().add(expiry, unit)
+                        var expiry = JSON.stringify(moment(expirystring).format("MMMM Do YYYY"))
                         this.props.cameraFoodCreate({ name, expiry });
                     }
                 }
