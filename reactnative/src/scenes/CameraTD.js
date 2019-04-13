@@ -1,21 +1,16 @@
 import React, { Component } from "react";
+import _ from 'lodash';
 import { TouchableOpacity, View, ImageBackground, StyleSheet, Dimensions, Platform, Image } from "react-native";
 import { RNCamera as Camera } from "react-native-camera";
 import RNTextDetector from "react-native-text-detector";
-import axios from 'react-native-axios';
+
+import TextDetectSave from '../common/TextDetectSave';
 
 
 const PICTURE_OPTIONS = {
   quality: 1,
   fixOrientation: true,
   forceUpOrientation: true
-};
-
-const Colors = {
-  white: "#ffffff",
-  black: "#000000",
-  primary: "#003143",
-  accent: "#FF6600"
 };
 
 const { height, width } = Dimensions.get("window");
@@ -37,85 +32,13 @@ const dim = {
   screenHeight
 };
 
-const style = StyleSheet.create({
-  screen: {
-    backgroundColor: Colors.black,
-    flex: 1
-  },
-  camera: {
-    position: "absolute",
-    width: dim.screenWidth,
-    height: dim.screenHeight,
-    alignItems: "center",
-    justifyContent: "center",
-    top: 0,
-    left: 0,
-    flex: 1
-  },
-  imageBackground: {
-    position: "absolute",
-    width: dim.screenWidth,
-    height: dim.screenHeight,
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    top: 0,
-    left: 0
-  },
-  buttonContainer: {
-    width: 70,
-    height: 70,
-    backgroundColor: Colors.white,
-    borderRadius: 35,
-    position: "absolute",
-    bottom: 90,
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  button: {
-    width: 64,
-    height: 64,
-    backgroundColor: Colors.white,
-    borderRadius: 32,
-    borderWidth: 4,
-    borderColor: Colors.black
-  },
-  boundingRect: {
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 2,
-    borderColor: "#FF6600"
-  },
-  backButton: {
-    width: 64,
-    height: 64,
-    position: 'absolute',
-    top: 0,
-    left: 0
-  },
-  confirmButton: {
-    width: 64,
-    height: 64,
-    position: 'absolute',
-    top: 0,
-    left: 0
-  },
-  confirmButtonContainer: {
-    width: 64,
-    height: 64,
-    position: 'absolute',
-    top: 0,
-    left: 64
-  }
-})
-
-export default class CameraTD extends React.Component {
+export default class CameraTD extends Component {
   state = {
     loading: false,
     image: null,
     error: null,
-    visionResp: []
+    visionResp: [],
+    confirm: false
   };
 
   /**
@@ -229,10 +152,12 @@ export default class CameraTD extends React.Component {
     });
   };
 
+  /* 
+  not needed 
   refactorObject(visionResp) {
     listItems = Object.values(visionResp.text);
     console.log("from refactor" + listItems)
-  }
+  }*/
 
   /**
    * React Native render function
@@ -240,30 +165,6 @@ export default class CameraTD extends React.Component {
    * @returns ReactNode or null
    * @memberof App
    */
-
-  /* API call handler */
-  onPressAPICall = (text) => {
-    delete text.bounding;
-    console.log(text)
-    var text = text.text
-    var foodData = text.split("\n")
-    var data = ""
-
-    for (key in foodData) {
-      data = data + '"' + foodData[key] + '"' + ","
-    }
-    console.log(data)
-    console.log(typeof data)
-
-    const req = "https://us-central1-checkit-6682c.cloudfunctions.net/expiry?text=[" + data + "]"
-    console.log(req)
-    axios.get(req)
-      .then(res => console.log(res)) // TODO save each item and expiry to fridge
-      .catch(err => console.log(err))
-  };
-
-  // TODO create a function to refactor visionresp json into list
-
 
   render() {
     const visionResp = this.state.visionResp;
@@ -324,11 +225,13 @@ export default class CameraTD extends React.Component {
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate("Fridge");
-                this.onPressAPICall(text);
+                // this.setState({ confirm: true })
+                //this.state.confirm ? (<TextDetectSave text={text} />) : null
                 this.setState({ image: false });
               }}
               style={style.confirmButtonContainer}
             >
+              <TextDetectSave text={text} />
               < Image source={require("./../../assets/plus-button.png")}
                 style={style.confirmButton} />
             </TouchableOpacity>
@@ -339,3 +242,83 @@ export default class CameraTD extends React.Component {
     );
   }
 }
+
+const Colors = {
+  white: "#ffffff",
+  black: "#000000",
+  primary: "#003143",
+  accent: "#FF6600"
+};
+
+const style = StyleSheet.create({
+  screen: {
+    backgroundColor: Colors.black,
+    flex: 1
+  },
+  camera: {
+    position: "absolute",
+    width: dim.screenWidth,
+    height: dim.screenHeight,
+    alignItems: "center",
+    justifyContent: "center",
+    top: 0,
+    left: 0,
+    flex: 1
+  },
+  imageBackground: {
+    position: "absolute",
+    width: dim.screenWidth,
+    height: dim.screenHeight,
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    top: 0,
+    left: 0
+  },
+  buttonContainer: {
+    width: 70,
+    height: 70,
+    backgroundColor: Colors.white,
+    borderRadius: 35,
+    position: "absolute",
+    bottom: 90,
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  button: {
+    width: 64,
+    height: 64,
+    backgroundColor: Colors.white,
+    borderRadius: 32,
+    borderWidth: 4,
+    borderColor: Colors.black
+  },
+  boundingRect: {
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "#FF6600"
+  },
+  backButton: {
+    width: 64,
+    height: 64,
+    position: 'absolute',
+    top: 0,
+    left: 0
+  },
+  confirmButton: {
+    width: 64,
+    height: 64,
+    position: 'absolute',
+    top: 0,
+    left: 0
+  },
+  confirmButtonContainer: {
+    width: 64,
+    height: 64,
+    position: 'absolute',
+    top: 0,
+    left: 64
+  }
+})
