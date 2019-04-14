@@ -4,7 +4,7 @@ import { ListView } from 'react-native';
 import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, Right } from 'native-base';
 
 import { connect } from 'react-redux';
-import { shoppingFoodFetch, shoppingFoodCreate, shoppingFoodUpdate, fridgeFoodCreate } from '../actions';
+import { shoppingFoodFetch, shoppingFoodCreate, shoppingFoodUpdate } from '../actions';
 import ListShoppingItem from '../containers/ListShoppingItem';
 
 import axios from 'react-native-axios';
@@ -39,17 +39,30 @@ class ShoppingList extends Component {
 
 
     submitAPI(shoppingFoodAPI) {
-        console.log(shoppingFoodAPI)
-        axios.get("https://us-central1-checkit-6682c.cloudfunctions.net/associations_generation", {
-            params: {
-                shoppingList: shoppingFoodAPI
-            }
-        })
+        // console.log(shoppingFoodAPI)
+        const req = "https://us-central1-checkit-6682c.cloudfunctions.net/associations_generation?shoppingList=[" + shoppingFoodAPI + "]"
+        console.log(req)
+        axios.get(req)
             .then(res => {
-                console.log(res.data)
-                for (var i; i < res.data.length; i++) {
-                    console.log(res.data[i]["name"])
-                    fridgeFoodCreate(res.data[i]["name"])
+                var resString = String(res.data).slice(2, -2)
+                // var resString = String("[['MOZZARELLA CHEESE', 'LUNCHEON MEAT', 'SALAMI']]").slice(2, -2)
+                //console.log(resString)
+                resString = resString.replace(/'/g, '')
+                //console.log(resString)
+                resString = resString.replace(/ '/g, '')
+                //console.log(resString)
+
+                var result = resString.split(", ")
+
+                console.log(result)
+                for (var i = 0; i < result.length; i++) {
+                    var name = result[i]
+                    // console.log(name)
+
+                    name = name.toLowerCase()
+                    name = name.charAt(0).toUpperCase() + name.slice(1)
+                    // console.log(name)
+                    this.props.shoppingFoodCreate({ name })
                 }
             })
             .catch(err => console.log(err))
@@ -58,11 +71,11 @@ class ShoppingList extends Component {
     onAddButtonPress() {
         console.log(this.props.shoppingFoods)
         const shoppingFoodLoop = this.props.shoppingFoods
-        var shoppingFoodAPI = []
+        var shoppingFoodAPI = ""
         for (var i = 0; i < shoppingFoodLoop.length; i++) {
-            shoppingFoodAPI.push(shoppingFoodLoop[i]["name"])
+            shoppingFoodAPI = shoppingFoodAPI + '"' + shoppingFoodLoop[i]["name"].toUpperCase() + '",'
         }
-        // shoppingFoodAPI = String(shoppingFoodAPI).replace(/"/g, "'")
+        shoppingFoodAPI = shoppingFoodAPI.slice(0, -1)
         this.submitAPI(shoppingFoodAPI)
     }
 
@@ -136,6 +149,5 @@ const styles = {
 export default connect(mapStateToProps, {
     shoppingFoodFetch,
     shoppingFoodCreate,
-    shoppingFoodUpdate,
-    fridgeFoodCreate
+    shoppingFoodUpdate
 })(ShoppingList);
