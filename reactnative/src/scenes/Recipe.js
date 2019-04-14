@@ -4,6 +4,8 @@ import { Text, View, StatusBar, ListView } from 'react-native';
 import { Icon, Container, Content, Header, Form, List, ListItem, Input, Item, Button, Label, Title, Left, Body, Right } from 'native-base';
 import firebase from '@firebase/app';
 import '@firebase/database';
+import axios from 'axios';
+
 
 class Recipe extends Component {
     constructor(props) {
@@ -28,6 +30,22 @@ class Recipe extends Component {
             newData.push(data)
             that.setState({listViewData : newData})
         })
+
+        const req = "https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation"
+        console.log(req)
+        axios.get(req, {
+            params: {
+                expiryIngredients : ['EGGS',"HAM",'BACON',"HONEY"],
+                otherIngredients : ['BARLEY',"SUGAR",'LEMON',"CEREAL"]
+        }})
+            .then(res => {
+                console.log(res.data)
+                results = JSON.parse(res.data)
+                for ( var key in results){
+                    console.log(key)
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     addRow(data) {
@@ -42,6 +60,10 @@ class Recipe extends Component {
         var newData = [...this.state.listViewData];
         newData.splice(rowId, 1)
         this.setState({ listViewData: newData });
+    }
+
+    callAPIRecipe () {
+        
     }
 
     /*
@@ -60,6 +82,14 @@ class Recipe extends Component {
                 <Body>
                     <Title style={{ color: '#000000' }}>Recipes</Title>
                 </Body>
+
+                <Right>
+                        <Button 
+                        light
+                        rounded>
+                            <Icon name='md-cart' style={{ color: '#4DAD4A'}} />
+                        </Button>
+                    </Right>
             
                 </Header>
                 <Content style={styles.container}>

@@ -9,7 +9,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Button } from '../common';
 import { connect } from "react-redux";
-import { Container, Header, Body, Title, Content } from 'native-base';
+import { Container, Header, Body, Title, Content, Right, Icon } from 'native-base';
 
 import CameraScreen from '../common/CameraScreen';
 import CameraTD from '../scenes/CameraTD';
@@ -20,16 +20,58 @@ import RecipeCards from '../common/RecipeCards';
 import SignUp from "../scenes/SignUp";
 import SignIn from "../scenes/SignIn";
 
+import axios from 'axios';
+
 
 class RecipeScreen extends Component {
     constructor(props){
         super(props);
         this.state = {
-          recipe: [{imageSource: 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Chilli_crab-02.jpg', estimatedTime: '7seconds', rating: '5 stars', noOfItemUsed: '7 items', ingredients: ['Watermelon', 'Pork']}, 
-          {imageSource: 'https://vignette.wikia.nocookie.net/moderncombatgames/images/0/0d/Chicken_Rice.png/revision/latest?cb=20151231093652', estimatedTime: '15 minutes', rating: '2 stars', noOfItemUsed: '12 items', ingredients: ['Chicken', 'Veggie']}]
+          recipe: []
         }
       }
-      iterateThroughRecipes() {
+    
+
+    componentDidMount() {
+        const req = 
+        'https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation?expiryIngredients=["EGGS","HAM","BACON","HONEY"]&otherIngredients=["BARLEY","SUGAR","LEMON","CEREAL"]'
+        console.log(req)
+        axios.get(req)
+            .then(res => {
+                resultRemoveBracket = res.data
+                resultNewApos = resultRemoveBracket.replace(/'/g,'"')
+                resultString = JSON.parse(resultNewApos)
+                
+
+                recipeLoad = []
+
+                for (var i = 0; i < 10; i++ ){
+                    var ingredientArray = []
+                    for (var j in resultString[1][i][1]["Ingredients"]){
+                        ingredientArray.push(resultString[1][1][1]["Ingredients"][j])
+                    }
+                    var recipeInfo = {
+                        imageSource: resultString[1][i][1]["ImageUrl"],
+                        estimatedTime: resultString[1][i][1]["Time"],
+                        rating: resultString[1][i][1]["Rating"],
+                        noOfItemUsed: resultString[1][i][2],
+                        ingredients: ingredientArray
+                    }
+                    recipeLoad.push(recipeInfo)
+
+
+                }
+                console.log(recipeLoad)
+                this.setState({
+                    recipe: recipeLoad
+                })
+                
+            })
+            .catch(err => console.log(err))
+    
+    }
+
+    iterateThroughRecipes(){
         return this.state.recipe.map(item => {
           return(
             <View style = {styles.recipeCardContainer}>
@@ -45,7 +87,50 @@ class RecipeScreen extends Component {
           )
         })
     }
+
+    reloadPage() {
+        console.log("Reloading working")
+        const req = 
+        'https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation?expiryIngredients=["EGGS","HAM","BACON","HONEY"]&otherIngredients=["BARLEY","SUGAR","LEMON","CEREAL"]'
+        console.log(req)
+        axios.get(req)
+            .then(res => {
+                resultRemoveBracket = res.data
+                resultNewApos = resultRemoveBracket.replace(/'/g,'"')
+                resultString = JSON.parse(resultNewApos)
+                
+
+                recipeLoad = []
+
+                for (var i = 0; i < 10; i++ ){
+                    var ingredientArray = []
+                    for (var j in resultString[1][i][1]["Ingredients"]){
+                        ingredientArray.push(resultString[1][1][1]["Ingredients"][j])
+                    }
+                    var recipeInfo = {
+                        imageSource: resultString[1][i][1]["ImageUrl"],
+                        estimatedTime: resultString[1][i][1]["Time"],
+                        rating: resultString[1][i][1]["Rating"],
+                        noOfItemUsed: resultString[1][i][2],
+                        ingredients: ingredientArray
+                    }
+                    recipeLoad.push(recipeInfo)
+
+
+                }
+                console.log(recipeLoad)
+                this.setState({
+                    recipe: recipeLoad
+                })
+                
+            })
+            .catch(err => console.log(err))
+    
+    }
+    
+        
     render() {
+        
         return (
             <Container style={styles.container}>
                 <Header
@@ -55,6 +140,15 @@ class RecipeScreen extends Component {
                 <Body>
                     <Title style={{ color: '#000' }}>Recipes</Title>
                 </Body>
+                <Right>
+                        <Button 
+                        light
+                        rounded
+                        onPress = {() => {this.reloadPage()}}
+                        >
+                            <Icon name='ios-refresh' style={{ color: '#4DAD4A'}} />
+                        </Button>
+                    </Right>
                 </Header>
                 <Content style={styles.container}>
                     <ScrollView style = {styles.recipeScreenContainer}>
