@@ -4,16 +4,19 @@ import { ListView } from 'react-native';
 import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, Right } from 'native-base';
 
 import { connect } from 'react-redux';
-import { shoppingFoodFetch, shoppingFoodCreate, shoppingFoodUpdate } from '../actions';
+import { shoppingFoodFetch, shoppingFoodCreate, shoppingFoodUpdate, fridgeFoodCreate } from '../actions';
 import ListShoppingItem from '../containers/ListShoppingItem';
 
+import axios from 'react-native-axios';
+
 class ShoppingList extends Component {
-    
+
     componentWillMount() {
         this.props.shoppingFoodFetch();
         this.createDataSource(this.props);
     }
 
+    // process shopping list into an array
     componentWillReceiveProps(nextProps) {
         this.createDataSource(nextProps);
     }
@@ -34,8 +37,37 @@ class ShoppingList extends Component {
         this.props.shoppingFoodCreate({ name });
     }
 
+
+    submitAPI(shoppingFoodAPI) {
+        console.log(shoppingFoodAPI)
+        axios.get("https://us-central1-checkit-6682c.cloudfunctions.net/associations_generation", {
+            params: {
+                shoppingList: shoppingFoodAPI
+            }
+        })
+            .then(res => {
+                console.log(res.data)
+                for (var i; i < res.data.length; i++) {
+                    console.log(res.data[i]["name"])
+                    fridgeFoodCreate(res.data[i]["name"])
+                }
+            })
+            .catch(err => console.log(err))
+    }
+
+    onAddButtonPress() {
+        console.log(this.props.shoppingFoods)
+        const shoppingFoodLoop = this.props.shoppingFoods
+        var shoppingFoodAPI = []
+        for (var i = 0; i < shoppingFoodLoop.length; i++) {
+            shoppingFoodAPI.push(shoppingFoodLoop[i]["name"])
+        }
+        // shoppingFoodAPI = String(shoppingFoodAPI).replace(/"/g, "'")
+        this.submitAPI(shoppingFoodAPI)
+    }
+
     render() {
-        return(
+        return (
             <Container style={styles.container}>
                 <Header
                     style={{ backgroundColor: '#f2f2f2' }}
@@ -45,38 +77,41 @@ class ShoppingList extends Component {
                         <Title style={{ color: '#000' }}>My Shopping List</Title>
                     </Body>
                     <Right>
-                        <Button 
-                        light
-                        rounded>
-                            <Icon name='md-cart' style={{ color: '#4DAD4A'}} />
+                        <Button
+                            light
+                            rounded
+                            success
+                            onPress={() => this.onAddButtonPress()}
+                        >
+                            <Icon name='md-bulb' style={{ color: '#FFF' }} />
                         </Button>
                     </Right>
                 </Header>
                 <Content style={{ flex: 1, backgroundColor: '#fff', marginTop: 5 }}>
-                
-                <Item
-                style = {{ paddingEnd: 10}}
-                >
-                    <Input 
-                        label="Item"
-                        placeholder="Add Item"
-                        value={this.props.name}
-                        onChangeText={value => this.props.shoppingFoodUpdate({ prop: 'name', value })}
-                    />
-                    <Button
-                        rounded
-                        success
-                        onPress={this.onButtonPress.bind(this)}
+
+                    <Item
+                        style={{ paddingEnd: 10 }}
                     >
-                        <Icon name="add" />
-                    </Button>
-                </Item>
-               
-                <ListView
-                    enableEmptySections
-                    dataSource={this.dataSource}
-                    renderRow={this.renderRow}
-                />
+                        <Input
+                            label="Item"
+                            placeholder="Add Item"
+                            value={this.props.name}
+                            onChangeText={value => this.props.shoppingFoodUpdate({ prop: 'name', value })}
+                        />
+                        <Button
+                            rounded
+                            success
+                            onPress={this.onButtonPress.bind(this)}
+                        >
+                            <Icon name="add" />
+                        </Button>
+                    </Item>
+
+                    <ListView
+                        enableEmptySections
+                        dataSource={this.dataSource}
+                        renderRow={this.renderRow}
+                    />
                 </Content>
             </Container>
         );
@@ -98,8 +133,9 @@ const styles = {
     }
 }
 
-export default connect(mapStateToProps, { 
+export default connect(mapStateToProps, {
     shoppingFoodFetch,
     shoppingFoodCreate,
-    shoppingFoodUpdate 
-}) (ShoppingList);
+    shoppingFoodUpdate,
+    fridgeFoodCreate
+})(ShoppingList);

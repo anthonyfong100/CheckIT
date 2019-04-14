@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { View, Text, Platform, StatusBar, ScrollView } from 'react-native';
 import { Card, CardSection } from '../common';
 import { Container, Header, Body, Title, Content, Right, Icon, Button } from 'native-base';
 
 import RecipeCards from '../common/RecipeCards';
+
+import { connect } from 'react-redux';
+import { fridgeFoodFetch } from '../actions';
 
 import axios from 'react-native-axios';
 
@@ -14,6 +18,15 @@ class RecipeScreen extends Component {
             recipe: []
         }
     }
+    /*
+    componentWillMount() {
+        this.props.fridgeFoodFetch();
+        this.createDataSource(this.props);
+    }
+
+    createDataSource({ fridgeFoods }) {
+        console.log(fridgeFoods)
+    }*/
 
     componentDidMount() {
         const req =
@@ -28,7 +41,7 @@ class RecipeScreen extends Component {
 
                 recipeLoad = []
 
-                for (var i = 0; i < 10; i++) {
+                for (var i = 0; i < 8; i++) {
                     var ingredientArray = []
                     for (var j in resultString[1][i][1]["Ingredients"]) {
                         ingredientArray.push(resultString[1][1][1]["Ingredients"][j])
@@ -126,9 +139,10 @@ class RecipeScreen extends Component {
                         <Button
                             light
                             rounded
+                            success
                             onPress={() => { this.reloadPage() }}
                         >
-                            <Icon name='ios-refresh' style={{ color: '#4DAD4A' }} />
+                            <Icon name='md-refresh' style={{ color: '#FFF' }} />
                         </Button>
                     </Right>
                 </Header>
@@ -168,4 +182,13 @@ const styles = {
 
 }
 
-export default RecipeScreen
+const mapStateToProps = (state) => {
+    const fridgeFoods = _.map(state.fridgeFoods, (val, uid) => {
+        return { ...val, uid }
+    });
+    return { fridgeFoods }
+}
+
+export default connect(mapStateToProps, {
+    fridgeFoodFetch
+})(RecipeScreen);

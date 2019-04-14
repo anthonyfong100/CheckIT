@@ -67,9 +67,10 @@ class Fridge extends Component {
                         <Button
                             light
                             rounded
+                            success
                             onPress={() => { this.setState({ modalSetUp: true }) }}
                         >
-                            <Icon name="ios-information-circle-outline" />
+                            <Icon name="ios-information-circle-outline" style={{ color: '#FFF' }} />
                         </Button>
                     </Right>
                 </Header>
