@@ -4,8 +4,7 @@ import { Text, View, StatusBar, ListView } from 'react-native';
 import { Icon, Container, Content, Header, Form, List, ListItem, Input, Item, Button, Label, Title, Left, Body, Right } from 'native-base';
 import firebase from '@firebase/app';
 import '@firebase/database';
-import axios from 'axios';
-
+import axios from 'react-native-axios';
 
 class Recipe extends Component {
     constructor(props) {
@@ -13,10 +12,11 @@ class Recipe extends Component {
 
         var data = []
 
-        this.ds = new ListView.DataSource({ 
-            rowHasChanged: (r1, r2) => r1 !== r2 })
+        this.ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        })
 
-        this.state= {
+        this.state = {
             listViewData: data,
             newItem: ""
         }
@@ -24,24 +24,25 @@ class Recipe extends Component {
 
     componentDidMount() {
         var that = this
-        firebase.database().ref('/recipes').on('child_added', function(data){
+        firebase.database().ref('/recipes').on('child_added', function (data) {
 
             var newData = [...that.state.listViewData]
             newData.push(data)
-            that.setState({listViewData : newData})
+            that.setState({ listViewData: newData })
         })
 
         const req = "https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation"
         console.log(req)
         axios.get(req, {
             params: {
-                expiryIngredients : ['EGGS',"HAM",'BACON',"HONEY"],
-                otherIngredients : ['BARLEY',"SUGAR",'LEMON',"CEREAL"]
-        }})
+                expiryIngredients: ['EGGS', "HAM", 'BACON', "HONEY"],
+                otherIngredients: ['BARLEY', "SUGAR", 'LEMON', "CEREAL"]
+            }
+        })
             .then(res => {
                 console.log(res.data)
                 results = JSON.parse(res.data)
-                for ( var key in results){
+                for (var key in results) {
                     console.log(key)
                 }
             })
@@ -54,7 +55,7 @@ class Recipe extends Component {
     }
 
     async deleteRow(secId, rowId, rowMap, data) {
-        await firebase.database().ref('recipes/'+ data.key).set(null)
+        await firebase.database().ref('recipes/' + data.key).set(null)
 
         rowMap[`${secId}${rowId}`].props.closeRow();
         var newData = [...this.state.listViewData];
@@ -62,8 +63,8 @@ class Recipe extends Component {
         this.setState({ listViewData: newData });
     }
 
-    callAPIRecipe () {
-        
+    callAPIRecipe() {
+
     }
 
     /*
@@ -71,42 +72,42 @@ class Recipe extends Component {
 
     }*/
 
-    render () {
+    render() {
         return (
             <Container style={styles.container}>
                 <Header
                     style={{ backgroundColor: '#f2f2f2' }}
                     androidStatusBarColor="#000000"
                 >
-                
-                <Body>
-                    <Title style={{ color: '#000000' }}>Recipes</Title>
-                </Body>
 
-                <Right>
-                        <Button 
-                        light
-                        rounded>
-                            <Icon name='md-cart' style={{ color: '#4DAD4A'}} />
+                    <Body>
+                        <Title style={{ color: '#000000' }}>Recipes</Title>
+                    </Body>
+
+                    <Right>
+                        <Button
+                            light
+                            rounded>
+                            <Icon name='md-cart' style={{ color: '#4DAD4A' }} />
                         </Button>
                     </Right>
-            
+
                 </Header>
                 <Content style={styles.container}>
-                        <Item>
-                            <Input 
-                                onChangeText = {(newItem) => this.setState({newItem})}
-                                placeholder="Add Name"
-                            />
+                    <Item>
+                        <Input
+                            onChangeText={(newItem) => this.setState({ newItem })}
+                            placeholder="Add Name"
+                        />
 
-                            <Button
-                                onPress={()=>this.addRow(this.state.newItem)}
-                            >
-                                <Icon name="add" />
-                            </Button>
-                        </Item>
+                        <Button
+                            onPress={() => this.addRow(this.state.newItem)}
+                        >
+                            <Icon name="add" />
+                        </Button>
+                    </Item>
                     <List
-                        enableEmptySections 
+                        enableEmptySections
                         dataSource={this.ds.cloneWithRows(this.state.listViewData)}
                         renderRow={data =>
                             <ListItem>
@@ -123,17 +124,17 @@ class Recipe extends Component {
                                 <Icon name="information-circle"/>
                             </Button>
                         }*/
-                        
+
                         renderRightHiddenRow={(secId, rowId, rowMap, data) =>
-                            <Button 
+                            <Button
                                 full
                                 danger
-                                onPress={()=>this.deleteRow(secId, rowId, rowMap, data)}
+                                onPress={() => this.deleteRow(secId, rowId, rowMap, data)}
                             >
-                                <Icon name="trash"/>
+                                <Icon name="trash" />
                             </Button>
                         }
-                        
+
                         leftOpenValue={-75}
                         rightOpenValue={-75}
                     />
