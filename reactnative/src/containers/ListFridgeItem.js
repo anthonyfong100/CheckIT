@@ -7,40 +7,43 @@ import { CardSection } from '../common';
 import { fridgeFoodDelete } from '../actions';
 
 import { connect } from 'react-redux';
+import moment from 'moment'
 
 class ListFridgeItem extends Component {
-    
+
     deleteHandler({ uid }) {
         this.props.fridgeFoodDelete({ uid })
     }
 
     render() {
         const { name, expiry, uid } = this.props.fridgeFood;
-        
+
         var swipeButtons = [{
             text: 'Eaten',
             backgroundColor: 'blue',
             underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
             onPress: () => this.deleteHandler({ uid })
-          },
-          {
+        },
+        {
             text: 'Disposed',
             backgroundColor: 'red',
             underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
             onPress: () => this.deleteHandler({ uid })
-          }
+        }
         ];
+
+        expirydate = moment(expiry, "MMMM Do YYYY").fromNow();
 
         return (
             <Swipeout
-            right={swipeButtons}
-            autoClose={true}
-            backgroundColor= 'transparent'
+                right={swipeButtons}
+                autoClose={true}
+                backgroundColor='transparent'
             >
                 <View>
                     <CardSection>
                         <Text style={styles.textStyle1}>
-                            {name} expires on {expiry}
+                            {name} expires {expirydate}
                         </Text>
                     </CardSection>
                 </View>

@@ -15,3 +15,7 @@ export const FRIDGE_FOOD_FETCH_SUCCESS = 'fridge_food_fetch_success';
 export const FRIDGE_FOOD_CREATE = 'fridge_food_create';
 export const FRIDGE_FOOD_UPDATE = 'fridge_food_update';
 export const FRIDGE_FOOD_SAVE_SUCCESS = 'fridge_food_save_success';
+
+export const CAMERA_FOOD_CREATE = 'camera_food_create';
+export const CAMERA_FOOD_UPDATE = 'camera_food_update';
+export const CAMERA_FOOD_SAVE_SUCCESS = 'camera_food_save_success';
