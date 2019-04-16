@@ -1,41 +1,38 @@
 import React, { Component } from 'react';
-import { View, Text, AppRegistry, ImageBackground, StyleSheet} from 'react-native';
+import { View, Text, AppRegistry, ImageBackground, StyleSheet } from 'react-native';
 import CollapseView from 'react-native-collapse-view';
 import AddButtonToShopping from './AddButtonToShopping';
 
 
 
 export default class RecipeCards extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        
+
     }
 
 
     _renderIngredients() {
-        i=0;
-        
+        i = 0;
+
         return this.props.ingredients.map(item => {
-            return(
-                <View style = {{flexDirection: 'row', justifyContent: 'center'}}>
+            return (
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <Text>{item}</Text>
                     <AddButtonToShopping></AddButtonToShopping>
                 </View>
-                
+
             )
-            i = i+1;
+            i = i + 1;
         })
     }
-    
-
-    
 
     _renderCollapseView = (collapse) => {
         return (
-            <View style = {styles.containerStyleOne}>
+            <View style={styles.containerStyleOne}>
                 <View>
-                <Text>
-                    Ingredients needed
+                    <Text>
+                        Ingredients needed
                 </Text>
                 </View>
                 <View>
@@ -46,24 +43,24 @@ export default class RecipeCards extends Component {
     }
 
     _renderTensionView = (collapse) => {
-        const { imageSource} = this.props;
+        const { imageSource } = this.props;
         return (
-            <View style = {styles.containerStyle}>
+            <View style={styles.containerStyle}>
 
-                <ImageBackground source ={{uri: this.props.imageSource }} style = {styles.imageBackground}>
-                
-                    <View style = {{position: 'absolute', alignSelf: 'flex-end', backgroundColor: 'rgba(0,0,0,0.3)'}}>
-                        <Text style = {{color:'white'}}>
+                <ImageBackground source={{ uri: this.props.imageSource }} style={styles.imageBackground}>
+
+                    <View style={{ position: 'absolute', alignSelf: 'flex-end', backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                        <Text style={{ color: 'white' }}>
                             Estimated Time: {this.props.estimatedTime}
                         </Text>
                     </View>
-                    <View style = {{position: 'absolute', bottom: 0, backgroundColor: 'rgba(0,0,0,0.3)'}}>
-                        <Text style = {{color:'white'}}>
+                    <View style={{ position: 'absolute', bottom: 0, backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                        <Text style={{ color: 'white' }}>
                             Item Used: {this.props.noOfItemUsed}
                         </Text>
                     </View>
-                    <View style = {{position: 'absolute', bottom: 0, right:0, backgroundColor: 'rgba(0,0,0,0.3)' }}>
-                        <Text style = {{color:'white'}}>
+                    <View style={{ position: 'absolute', bottom: 0, right: 0, backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                        <Text style={{ color: 'white' }}>
                             Rating: {this.props.rating}
                         </Text>
                     </View>
@@ -74,22 +71,20 @@ export default class RecipeCards extends Component {
         )
     }
 
-
-
     render() {
-        return(
-           <View style = {styles.containerStyle}>
+        return (
+            <View style={styles.containerStyle}>
                 <CollapseView
-                    renderView = {this._renderTensionView}
-                    renderCollapseView = {this._renderCollapseView}
-                    />
-           </View> 
-            
-            
+                    renderView={this._renderTensionView}
+                    renderCollapseView={this._renderCollapseView}
+                />
+            </View>
+
+
         );
     };
 
-    
+
 };
 
 const styles = StyleSheet.create({
@@ -97,10 +92,10 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 100,
 
-         opacity: 0.8
-        
-        
-        
+        opacity: 0.8
+
+
+
     },
 
     containerStyle: {
@@ -110,7 +105,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderColor: '#ddd',
         position: 'relative',
- 
+
     },
     containerStyleOne: {
         borderBottomWidth: 1,
@@ -122,7 +117,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         elevation: 3
     },
-    
+
 })
 
 
