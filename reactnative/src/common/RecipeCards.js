@@ -19,7 +19,7 @@ export default class RecipeCards extends Component {
             return (
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <Text>{item}</Text>
-                    <AddButtonToShopping></AddButtonToShopping>
+                    <AddButtonToShopping />
                 </View>
 
             )

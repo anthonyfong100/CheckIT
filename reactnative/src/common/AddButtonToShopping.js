@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, TouchableOpacity, Image } from 'react-native';
 
 import { connect } from 'react-redux';
-import { fridgeFoodCreate } from '../actions';
+import { shoppingFoodCreate } from '../actions';
 
 class AddButtonToShopping extends Component {
     constructor(props) {
@@ -12,8 +12,7 @@ class AddButtonToShopping extends Component {
 
     onButtonPress() {
         const name = ""
-        const expiry = ""
-        this.props.fridgeFoodCreate({ name, expiry })
+        this.props.shoppingFoodCreate({ name })
     };
 
 
@@ -30,10 +29,10 @@ class AddButtonToShopping extends Component {
 
 
 const mapStateToProps = (state) => {
-    const { name, expiry } = state.addFridgeFoods;
-    return { name, expiry }
+    const { name } = state.addShoppingFoods;
+    return { name }
 }
 
 export default connect(mapStateToProps, {
-    fridgeFoodCreate
+    shoppingFoodCreate
 })(AddButtonToShopping);
