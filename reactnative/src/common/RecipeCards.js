@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AppRegistry, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, AppRegistry, ImageBackground, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import CollapseView from 'react-native-collapse-view';
 import AddButtonToShopping from './AddButtonToShopping';
 
@@ -8,7 +8,10 @@ import AddButtonToShopping from './AddButtonToShopping';
 export default class RecipeCards extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            likeState: false
+        }
+        
     }
 
 
@@ -27,9 +30,17 @@ export default class RecipeCards extends Component {
         })
     }
 
+
+    
+
+    
+
     _renderCollapseView = (collapse) => {
+
+        currentState = this.state.likeState
         return (
-            <View style={styles.containerStyleOne}>
+            <View style = {styles.containerStyleOne}>
+                
                 <View>
                     <Text>
                         Ingredients needed
@@ -42,15 +53,37 @@ export default class RecipeCards extends Component {
         )
     }
 
+    renderHeartShape = () => {
+        if (this.state.likeState == false){
+            return(                 
+            <Image  style = {{width: 20, height: 20}} source = {require('./../../assets/heartshape_uncolored.png')}/>
+            )
+        }else{
+            return(<Image  style = {{width: 20, height: 20}} source = {require('./../../assets/heartshape_red.png')}/>
+            )}
+    }
+
     _renderTensionView = (collapse) => {
         const { imageSource } = this.props;
         return (
-            <View style={styles.containerStyle}>
+            <View style = {styles.containerStyle}>
+            
 
-                <ImageBackground source={{ uri: this.props.imageSource }} style={styles.imageBackground}>
-
-                    <View style={{ position: 'absolute', alignSelf: 'flex-end', backgroundColor: 'rgba(0,0,0,0.3)' }}>
-                        <Text style={{ color: 'white' }}>
+                <ImageBackground source ={{uri: this.props.imageSource }} style = {styles.imageBackground}>
+                <View style = {{position:'absolute', alignSelf:'flex-start'}}>
+                        <TouchableOpacity onPress = {() => {
+                            this.setState({
+                                likeState: !currentState
+                            })
+                        }}>
+                        {this.renderHeartShape()}
+                        
+                        
+                        </TouchableOpacity>
+                    </View>
+                                   
+                    <View style = {{position: 'absolute', alignSelf: 'flex-end', backgroundColor: 'rgba(0,0,0,0.3)'}}>
+                        <Text style = {{color:'white'}}>
                             Estimated Time: {this.props.estimatedTime}
                         </Text>
                     </View>
@@ -109,7 +142,7 @@ const styles = StyleSheet.create({
     },
     containerStyleOne: {
         borderBottomWidth: 1,
-
+        paddingTop: 20,
         backgroundColor: '#F5F1F1',
         justifyContent: 'center',
         flexDirection: 'column',
