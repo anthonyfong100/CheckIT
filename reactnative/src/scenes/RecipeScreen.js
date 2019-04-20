@@ -93,6 +93,7 @@ class RecipeScreen extends Component {
                 resultRemoveBracket = res.data
                 // for ( var i = 0; resultRemoveBracket )
                 resultNewApos = resultRemoveBracket.replace(/'s/g, "")
+                resultNewApos = resultNewApos.replace(/'S /g, 's ')
                 resultNewApos = resultNewApos.replace(/' s/g, ' s')
                 resultNewApos = resultNewApos.replace(/'/g, '"')
                 console.log(resultNewApos)
