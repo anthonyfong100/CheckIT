@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { View, Text, Platform, StatusBar, ScrollView } from 'react-native';
+import { View, Text, Platform, StatusBar, ScrollView, Alert } from 'react-native';
 import { Card, CardSection } from '../common';
-import { Container, Header, Body, Title, Content, Right, Icon, Button } from 'native-base';
-
+import { Container, Header, Body, Title, Content, Right, Icon, Button, Item } from 'native-base';
+import { Spinner } from '../common';
 import RecipeCards from '../common/RecipeCards';
 
 import { connect } from 'react-redux';
 import { fridgeFoodFetch } from '../actions';
+import Moment from 'moment'
 
 import axios from 'react-native-axios';
 
@@ -15,56 +16,36 @@ class RecipeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            recipe: []
+            recipe: [],
+            loading: true,
+            expiryItems: "",
+            otherItems: ""
         }
     }
-    /*
+
     componentWillMount() {
         this.props.fridgeFoodFetch();
         this.createDataSource(this.props);
+        this.APICall()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.createDataSource(nextProps);
     }
 
     createDataSource({ fridgeFoods }) {
-        console.log(fridgeFoods)
-    }*/
-
-    componentDidMount() {
-        const req =
-            'https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation?expiryIngredients=["EGGS","HAM","BACON","HONEY"]&otherIngredients=["BARLEY","SUGAR","LEMON","CEREAL"]'
-        console.log(req)
-        axios.get(req)
-            .then(res => {
-                resultRemoveBracket = res.data
-                resultNewApos = resultRemoveBracket.replace(/'/g, '"')
-                resultString = JSON.parse(resultNewApos)
-
-
-                recipeLoad = []
-
-                for (var i = 0; i < 8; i++) {
-                    var ingredientArray = []
-                    for (var j in resultString[1][i][1]["Ingredients"]) {
-                        ingredientArray.push(resultString[1][1][1]["Ingredients"][j])
-                    }
-                    var recipeInfo = {
-                        imageSource: resultString[1][i][1]["ImageUrl"],
-                        estimatedTime: resultString[1][i][1]["Time"],
-                        rating: resultString[1][i][1]["Rating"],
-                        noOfItemUsed: resultString[1][i][2],
-                        ingredients: ingredientArray
-                    }
-                    recipeLoad.push(recipeInfo)
-
-
-                }
-                console.log(recipeLoad)
-                this.setState({
-                    recipe: recipeLoad
-                })
-
-            })
-            .catch(err => console.log(err))
-
+        var expiryItem = ""
+        var otherItem = ""
+        for (var i = 0; i < fridgeFoods.length; i++) {
+            if (Moment(fridgeFoods[i]["expiry"], "MMMM Do YYYY").fromNow().includes("day")) {
+                expiryItem = expiryItem + '"' + fridgeFoods[i]["name"].toUpperCase() + '",'
+            } else {
+                otherItem = otherItem + '"' + fridgeFoods[i]["name"].toUpperCase() + '",'
+            }
+        }
+        expiryItem = expiryItem.slice(0, -1)
+        otherItem = otherItem.slice(0, -1)
+        this.setState({ expiryItems: expiryItem, otherItems: otherItem })
     }
 
     iterateThroughRecipes() {
@@ -84,15 +65,37 @@ class RecipeScreen extends Component {
         })
     }
 
+    renderSpinner() {
+        if (this.state.loading) {
+            return (
+                <Item style={{ paddingTop: 10, paddingBottom: 10 }}>
+                    <Spinner size="large" />
+                </Item>
+            )
+        }
+    }
+
     reloadPage() {
-        console.log("Reloading working")
+        this.setState({ loading: true })
+        Alert.alert("Generating new recipes...")
+        this.APICall()
+    }
+
+    APICall() {
+        const expiryItem = this.state.expiryItems
+        const otherItem = this.state.otherItems
         const req =
-            'https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation?expiryIngredients=["EGGS","HAM","BACON","HONEY"]&otherIngredients=["BARLEY","SUGAR","LEMON","CEREAL"]'
+            'https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation?expiryIngredients=[' + expiryItem + ']&otherIngredients=[' + otherItem + ']'
         console.log(req)
         axios.get(req)
             .then(res => {
+                console.log(res.data)
                 resultRemoveBracket = res.data
-                resultNewApos = resultRemoveBracket.replace(/'/g, '"')
+                // for ( var i = 0; resultRemoveBracket )
+                resultNewApos = resultRemoveBracket.replace(/'s/g, "")
+                resultNewApos = resultNewApos.replace(/' s/g, ' s')
+                resultNewApos = resultNewApos.replace(/'/g, '"')
+                console.log(resultNewApos)
                 resultString = JSON.parse(resultNewApos)
 
 
@@ -114,11 +117,11 @@ class RecipeScreen extends Component {
 
 
                 }
-                console.log(recipeLoad)
+                // console.log(recipeLoad)
                 this.setState({
                     recipe: recipeLoad
                 })
-
+                this.setState({ loading: false })
             })
             .catch(err => console.log(err))
     }
@@ -147,6 +150,7 @@ class RecipeScreen extends Component {
                     </Right>
                 </Header>
                 <Content style={styles.container}>
+                    {this.renderSpinner()}
                     <ScrollView style={styles.recipeScreenContainer}>
                         {this.iterateThroughRecipes()}
                     </ScrollView>
