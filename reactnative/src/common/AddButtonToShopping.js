@@ -7,8 +7,11 @@ import { shoppingFoodCreate } from '../actions';
 class AddButtonToShopping extends Component {
 
     onButtonPress() {
+
         const name = this.props.indgredientName
-        console.log(name)
+        //res = str.substr(str.indexOf(' ') + 1);
+        //console.log(res)
+
         this.props.shoppingFoodCreate({ name })
         Alert.alert("Item added to shopping list!")
     };

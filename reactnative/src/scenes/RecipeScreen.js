@@ -8,6 +8,7 @@ import RecipeCards from '../common/RecipeCards';
 
 import { connect } from 'react-redux';
 import { fridgeFoodFetch } from '../actions';
+import Moment from 'moment'
 
 import axios from 'react-native-axios';
 
@@ -16,7 +17,9 @@ class RecipeScreen extends Component {
         super(props);
         this.state = {
             recipe: [],
-            loading: true
+            loading: true,
+            expiryItems: "",
+            otherItems: ""
         }
     }
 
@@ -25,49 +28,27 @@ class RecipeScreen extends Component {
         this.createDataSource(this.props);
     }
 
-    createDataSource({ fridgeFoods }) {
-        console.log("from data source")
-        console.log(fridgeFoods)
+    componentWillReceiveProps(nextProps) {
+        this.createDataSource(nextProps);
     }
 
-    componentDidMount() {
-        const req =
-            'https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation?expiryIngredients=["EGGS","HAM","BACON","HONEY"]&otherIngredients=["BARLEY","SUGAR","LEMON","CEREAL"]'
-        console.log(req)
-        axios.get(req)
-            .then(res => {
-                resultRemoveBracket = res.data
-                resultNewApos = resultRemoveBracket.replace(/'/g, '"')
-                resultString = JSON.parse(resultNewApos)
+    componentDidUpdate() {
+        this.APICall()
+    }
 
-
-                recipeLoad = []
-
-                for (var i = 0; i < 8; i++) {
-                    var ingredientArray = []
-                    for (var j in resultString[1][i][1]["Ingredients"]) {
-                        ingredientArray.push(resultString[1][1][1]["Ingredients"][j])
-                    }
-                    var recipeInfo = {
-                        imageSource: resultString[1][i][1]["ImageUrl"],
-                        estimatedTime: resultString[1][i][1]["Time"],
-                        rating: resultString[1][i][1]["Rating"],
-                        noOfItemUsed: resultString[1][i][2],
-                        ingredients: ingredientArray
-                    }
-                    recipeLoad.push(recipeInfo)
-
-
-                }
-                console.log(recipeLoad)
-                this.setState({
-                    recipe: recipeLoad
-                })
-                this.setState({ loading: false })
-
-            })
-            .catch(err => console.log(err))
-
+    createDataSource({ fridgeFoods }) {
+        var expiryItem = ""
+        var otherItem = ""
+        for (var i = 0; i < fridgeFoods.length; i++) {
+            if (Moment(fridgeFoods[i]["expiry"], "MMMM Do YYYY").fromNow().includes("day")) {
+                expiryItem = expiryItem + '"' + fridgeFoods[i]["name"].toUpperCase() + '",'
+            } else {
+                otherItem = otherItem + '"' + fridgeFoods[i]["name"].toUpperCase() + '",'
+            }
+        }
+        expiryItem = expiryItem.slice(0, -1)
+        otherItem = otherItem.slice(0, -1)
+        this.setState({ expiryItems: expiryItem, otherItems: otherItem })
     }
 
     iterateThroughRecipes() {
@@ -100,13 +81,24 @@ class RecipeScreen extends Component {
     reloadPage() {
         this.setState({ loading: true })
         Alert.alert("Generating new recipes...")
+        this.APICall()
+    }
+
+    APICall() {
+        const expiryItem = this.state.expiryItems
+        const otherItem = this.state.otherItems
         const req =
-            'https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation?expiryIngredients=["EGGS","HAM","BACON","HONEY"]&otherIngredients=["BARLEY","SUGAR","LEMON","CEREAL"]'
+            'https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation?expiryIngredients=[' + expiryItem + ']&otherIngredients=[' + otherItem + ']'
         console.log(req)
         axios.get(req)
             .then(res => {
+                console.log(res.data)
                 resultRemoveBracket = res.data
-                resultNewApos = resultRemoveBracket.replace(/'/g, '"')
+                // for ( var i = 0; resultRemoveBracket )
+                resultNewApos = resultRemoveBracket.replace(/'s/g, "")
+                resultNewApos = resultNewApos.replace(/' s/g, ' s')
+                resultNewApos = resultNewApos.replace(/'/g, '"')
+                console.log(resultNewApos)
                 resultString = JSON.parse(resultNewApos)
 
 
@@ -128,7 +120,7 @@ class RecipeScreen extends Component {
 
 
                 }
-                console.log(recipeLoad)
+                // console.log(recipeLoad)
                 this.setState({
                     recipe: recipeLoad
                 })
