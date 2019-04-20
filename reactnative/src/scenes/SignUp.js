@@ -102,6 +102,15 @@ class SignUp extends Component {
               onChangeText={(confirmation) => this.setState({ confirmation })}
             />
           </Item>
+          <Item floatingLabel>
+            <Label>Age</Label>
+            <Input
+              autoCorrect={false}
+              autoCapitalize='none'
+            // value={this.state.confirmation}
+            // onChangeText={(confirmation) => this.setState({ confirmation })}
+            />
+          </Item>
           <Picker
             note
             mode="dropdown"
