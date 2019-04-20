@@ -1,15 +1,24 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import { ListView, Alert } from 'react-native';
 import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, Right } from 'native-base';
 
 import { connect } from 'react-redux';
 import { shoppingFoodFetch, shoppingFoodCreate, shoppingFoodUpdate } from '../actions';
 import ListShoppingItem from '../containers/ListShoppingItem';
+import { Spinner } from '../common';
 
 import axios from 'react-native-axios';
 
 class ShoppingList extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false
+        }
+
+    }
 
     componentWillMount() {
         this.props.shoppingFoodFetch();
@@ -37,12 +46,24 @@ class ShoppingList extends Component {
         this.props.shoppingFoodCreate({ name });
     }
 
+    renderSpinner() {
+        if (this.state.loading) {
+            return (
+                <Item style={{ paddingTop: 10, paddingBottom: 10 }}>
+                    <Spinner size="large" />
+                </Item>
+            )
+        }
+    }
 
     submitAPI(shoppingFoodAPI) {
         // console.log(shoppingFoodAPI)
         const req = "https://us-central1-checkit-6682c.cloudfunctions.net/associations_generation?shoppingList=[" + shoppingFoodAPI + "]"
         console.log(req)
         axios.get(req)
+            .then(() => {
+                Alert.alert("Analysing current items... Please wait...")
+            })
             .then(res => {
                 var resString = String(res.data).slice(2, -2)
                 // var resString = String("[['MOZZARELLA CHEESE', 'LUNCHEON MEAT', 'SALAMI']]").slice(2, -2)
@@ -54,7 +75,6 @@ class ShoppingList extends Component {
 
                 var result = resString.split(", ")
 
-                console.log(result)
                 for (var i = 0; i < result.length; i++) {
                     var name = result[i]
                     // console.log(name)
@@ -65,11 +85,15 @@ class ShoppingList extends Component {
                     this.props.shoppingFoodCreate({ name })
                 }
             })
+            .then(() => {
+                this.setState({ loading: false })
+                Alert.alert("Suggested items added!")
+            })
             .catch(err => console.log(err))
     }
 
     onAddButtonPress() {
-        console.log(this.props.shoppingFoods)
+        this.setState({ loading: true })
         const shoppingFoodLoop = this.props.shoppingFoods
         var shoppingFoodAPI = ""
         for (var i = 0; i < shoppingFoodLoop.length; i++) {
@@ -119,7 +143,7 @@ class ShoppingList extends Component {
                             <Icon name="add" />
                         </Button>
                     </Item>
-
+                    {this.renderSpinner()}
                     <ListView
                         enableEmptySections
                         dataSource={this.dataSource}
