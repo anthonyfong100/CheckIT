@@ -61,9 +61,6 @@ class ShoppingList extends Component {
         const req = "https://us-central1-checkit-6682c.cloudfunctions.net/associations_generation?shoppingList=[" + shoppingFoodAPI + "]"
         console.log(req)
         axios.get(req)
-            .then(() => {
-                Alert.alert("Analysing current items... Please wait...")
-            })
             .then(res => {
                 var resString = String(res.data).slice(2, -2)
                 // var resString = String("[['MOZZARELLA CHEESE', 'LUNCHEON MEAT', 'SALAMI']]").slice(2, -2)
@@ -101,6 +98,7 @@ class ShoppingList extends Component {
         }
         shoppingFoodAPI = shoppingFoodAPI.slice(0, -1)
         this.submitAPI(shoppingFoodAPI)
+        Alert.alert("Analysing current items... Please wait...")
     }
 
     render() {

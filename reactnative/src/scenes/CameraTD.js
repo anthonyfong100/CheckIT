@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import _ from 'lodash';
-import { TouchableOpacity, View, ImageBackground, StyleSheet, Dimensions, Platform, Image } from "react-native";
+import { TouchableOpacity, View, ImageBackground, StyleSheet, Dimensions, Platform, Image, Alert } from "react-native";
 import { RNCamera as Camera } from "react-native-camera";
 import RNTextDetector from "react-native-text-detector";
 
@@ -227,6 +227,7 @@ export default class CameraTD extends Component {
                 this.props.navigation.navigate("Fridge");
                 //this.state.confirm ? (<TextDetectSave text={text} />) : null
                 this.setState({ image: false });
+                Alert.alert("Items added!")
               }}
               style={style.confirmButtonContainer}
             >
