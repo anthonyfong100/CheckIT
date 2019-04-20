@@ -9,11 +9,10 @@ export default class RecipeCards extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            likeState: false
+            likeState: false,
+            loading: true
         }
-
     }
-
 
     _renderIngredients() {
         i = 0;
@@ -22,17 +21,13 @@ export default class RecipeCards extends Component {
             return (
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <Text>{item}</Text>
-                    <AddButtonToShopping />
+                    <AddButtonToShopping indgredientName={item} />
                 </View>
 
             )
             i = i + 1;
         })
     }
-
-
-
-
 
 
     _renderCollapseView = (collapse) => {

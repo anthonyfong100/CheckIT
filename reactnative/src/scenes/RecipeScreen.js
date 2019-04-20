@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { View, Text, Platform, StatusBar, ScrollView } from 'react-native';
+import { View, Text, Platform, StatusBar, ScrollView, Alert } from 'react-native';
 import { Card, CardSection } from '../common';
-import { Container, Header, Body, Title, Content, Right, Icon, Button } from 'native-base';
-
+import { Container, Header, Body, Title, Content, Right, Icon, Button, Item } from 'native-base';
+import { Spinner } from '../common';
 import RecipeCards from '../common/RecipeCards';
 
 import { connect } from 'react-redux';
@@ -15,18 +15,20 @@ class RecipeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            recipe: []
+            recipe: [],
+            loading: true
         }
     }
-    /*
+
     componentWillMount() {
         this.props.fridgeFoodFetch();
         this.createDataSource(this.props);
     }
 
     createDataSource({ fridgeFoods }) {
+        console.log("from data source")
         console.log(fridgeFoods)
-    }*/
+    }
 
     componentDidMount() {
         const req =
@@ -61,6 +63,7 @@ class RecipeScreen extends Component {
                 this.setState({
                     recipe: recipeLoad
                 })
+                this.setState({ loading: false })
 
             })
             .catch(err => console.log(err))
@@ -84,8 +87,19 @@ class RecipeScreen extends Component {
         })
     }
 
+    renderSpinner() {
+        if (this.state.loading) {
+            return (
+                <Item style={{ paddingTop: 10, paddingBottom: 10 }}>
+                    <Spinner size="large" />
+                </Item>
+            )
+        }
+    }
+
     reloadPage() {
-        console.log("Reloading working")
+        this.setState({ loading: true })
+        Alert.alert("Generating new recipes...")
         const req =
             'https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation?expiryIngredients=["EGGS","HAM","BACON","HONEY"]&otherIngredients=["BARLEY","SUGAR","LEMON","CEREAL"]'
         console.log(req)
@@ -118,7 +132,7 @@ class RecipeScreen extends Component {
                 this.setState({
                     recipe: recipeLoad
                 })
-
+                this.setState({ loading: false })
             })
             .catch(err => console.log(err))
     }
@@ -147,6 +161,7 @@ class RecipeScreen extends Component {
                     </Right>
                 </Header>
                 <Content style={styles.container}>
+                    {this.renderSpinner()}
                     <ScrollView style={styles.recipeScreenContainer}>
                         {this.iterateThroughRecipes()}
                     </ScrollView>
