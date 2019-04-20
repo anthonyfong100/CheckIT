@@ -26,14 +26,11 @@ class RecipeScreen extends Component {
     componentWillMount() {
         this.props.fridgeFoodFetch();
         this.createDataSource(this.props);
+        this.APICall()
     }
 
     componentWillReceiveProps(nextProps) {
         this.createDataSource(nextProps);
-    }
-
-    componentDidUpdate() {
-        this.APICall()
     }
 
     createDataSource({ fridgeFoods }) {
