@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { ListView, Alert } from 'react-native';
 import { Container, Header, Body, Title, Content, Button, Icon, Input, Item, DatePicker, Right } from 'native-base';
 import Moment from 'moment';
+import { Spinner } from '../common';
 
 import { connect } from 'react-redux';
 import { fridgeFoodFetch, fridgeFoodCreate, fridgeFoodUpdate } from '../actions';
@@ -13,7 +14,11 @@ class Fridge extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { chosenDate: new Date(), modalSetUp: false };
+        this.state = {
+            chosenDate: new Date(),
+            modalSetUp: false,
+            loading: true
+        };
         this.setDate = this.setDate.bind(this);
     }
 
@@ -34,6 +39,7 @@ class Fridge extends Component {
             rowHasChanged: (r1, r2) => r1 !== r2
         });
         this.dataSource = ds.cloneWithRows(fridgeFoods)
+        this.setState({ loading: false })
     }
 
     renderRow(fridgeFood) {
@@ -41,8 +47,10 @@ class Fridge extends Component {
     }
 
     onButtonPress() {
+        this.setState({ loading: true })
         const { name, expiry } = this.props;
         this.props.fridgeFoodCreate({ name, expiry });
+        this.setState({ loading: false })
     }
 
     setDate(newDate) {
@@ -50,6 +58,16 @@ class Fridge extends Component {
         Moment.locale('en');
         value = Moment(newDate).format("D MMM YY");
         this.props.fridgeFoodUpdate({ prop: 'expiry', value });
+    }
+
+    renderSpinner() {
+        if (this.state.loading) {
+            return (
+                <Item style={{ paddingTop: 10, paddingBottom: 10 }}>
+                    <Spinner size="large" />
+                </Item>
+            )
+        }
     }
 
     render() {
@@ -116,7 +134,7 @@ class Fridge extends Component {
                             <Icon name="add" />
                         </Button>
                     </Item>
-
+                    {this.renderSpinner()}
                     <ListView
                         enableEmptySections
                         dataSource={this.dataSource}
