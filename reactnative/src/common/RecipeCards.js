@@ -41,7 +41,6 @@ export default class RecipeCards extends Component {
         currentState = this.state.likeState
         return (
             <View style={{borderBottomWidth: 1,
-                paddingTop: 20,
                 backgroundColor: '#F5F1F1',
                 justifyContent: 'center',
                 flexDirection: 'column',
@@ -49,14 +48,14 @@ export default class RecipeCards extends Component {
                 alignItems: 'center',
                 elevation: 3,
                 height : this.props.ingredients.length * 25 }}>
-
-                <View>
+                <View style = {{position: 'absolute', top: 0, left: 0}}>
                 <TouchableOpacity onPress = {() => this.openLinkFunction()}>
-                <Text style = {{fontWeight: 'bold'}}>{this.props.recipeName}</Text>
+                <Text style = {{fontWeight: 'bold', fontSize: 20}}>{this.props.recipeName}</Text>
                 </TouchableOpacity>
-                    <Text>
-                        Ingredients needed
-                </Text>
+                </View>
+
+                <View style = {{paddingTop: 20}}>
+                    <Text>Ingredients needed</Text>
                 </View>
                 <View>
                     {this._renderIngredients()}
