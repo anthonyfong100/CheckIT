@@ -73,7 +73,6 @@ class Fridge extends Component {
     render() {
         return (
             <Container style={styles.container}>
-                <TutorialModal fridgeModal={this.state.modalSetUp} />
                 <Header
                     style={{ backgroundColor: '#f2f2f2' }}
                     androidStatusBarColor="#000"

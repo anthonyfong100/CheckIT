@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AppRegistry, ImageBackground, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, AppRegistry, ImageBackground, StyleSheet, TouchableOpacity, Image, Linking } from 'react-native';
 import CollapseView from 'react-native-collapse-view';
 import AddButtonToShopping from './AddButtonToShopping';
 
@@ -13,6 +13,12 @@ export default class RecipeCards extends Component {
             loading: true
         }
     }
+    
+
+    openLinkFunction() {
+        Linking.openURL(this.props.recipeUrl).catch((err) => console.error('An error occurred', err));
+    }
+
 
     _renderIngredients() {
         i = 0;
@@ -34,9 +40,20 @@ export default class RecipeCards extends Component {
 
         currentState = this.state.likeState
         return (
-            <View style={styles.containerStyleOne}>
+            <View style={{borderBottomWidth: 1,
+                paddingTop: 20,
+                backgroundColor: '#F5F1F1',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                borderColor: '#ddd',
+                alignItems: 'center',
+                elevation: 3,
+                height : this.props.ingredients.length * 25 }}>
 
                 <View>
+                <TouchableOpacity onPress = {() => this.openLinkFunction()}>
+                <Text style = {{fontWeight: 'bold'}}>{this.props.recipeName}</Text>
+                </TouchableOpacity>
                     <Text>
                         Ingredients needed
                 </Text>
@@ -138,7 +155,6 @@ const styles = StyleSheet.create({
     },
     containerStyleOne: {
         borderBottomWidth: 1,
-        paddingTop: 20,
         backgroundColor: '#F5F1F1',
         justifyContent: 'center',
         flexDirection: 'column',

@@ -48,6 +48,7 @@ class RecipeScreen extends Component {
         this.setState({ expiryItems: expiryItem, otherItems: otherItem })
     }
 
+
     iterateThroughRecipes() {
         return this.state.recipe.map(item => {
             return (
@@ -58,6 +59,8 @@ class RecipeScreen extends Component {
                         rating={item.rating}
                         noOfItemUsed={item.noOfItemUsed}
                         ingredients={item.ingredients}
+                        recipeUrl={item.recipeUrl}
+                        recipeName={item.recipeName}
 
                     />
                 </View>
@@ -105,14 +108,16 @@ class RecipeScreen extends Component {
                 for (var i = 0; i < 10; i++) {
                     var ingredientArray = []
                     for (var j in resultString[1][i][1]["Ingredients"]) {
-                        ingredientArray.push(resultString[1][1][1]["Ingredients"][j])
+                        ingredientArray.push(resultString[1][i][1]["Ingredients"][j])
                     }
                     var recipeInfo = {
                         imageSource: resultString[1][i][1]["ImageUrl"],
                         estimatedTime: resultString[1][i][1]["Time"],
                         rating: resultString[1][i][1]["Rating"],
                         noOfItemUsed: resultString[1][i][2],
-                        ingredients: ingredientArray
+                        ingredients: ingredientArray,
+                        recipeName: resultString[1][i][1]["Name"],
+                        recipeUrl: resultString[1][i][1]["Url"]
                     }
                     recipeLoad.push(recipeInfo)
 
