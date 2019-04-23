@@ -9,7 +9,7 @@ import { shoppingFoodDelete } from '../actions';
 import { connect } from 'react-redux';
 
 class ListShoppingItem extends Component {
-    
+
     deleteHandler({ uid }) {
         this.props.shoppingFoodDelete({ uid })
     }
@@ -17,25 +17,20 @@ class ListShoppingItem extends Component {
     render() {
 
         const { name, uid } = this.props.shoppingFood;
-        var swipeButtons = [{
-            text: 'Bought',
-            backgroundColor: 'blue',
-            underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
-            onPress: () => this.deleteHandler({ uid })
-          },
-          {
-            text: 'Remove',
-            backgroundColor: 'red',
-            underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
-            onPress: () => this.deleteHandler({ uid })
-          }
+        var swipeButtons = [
+            {
+                text: 'Remove',
+                backgroundColor: 'red',
+                underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+                onPress: () => this.deleteHandler({ uid })
+            }
         ];
 
         return (
             <Swipeout
-            right={swipeButtons}
-            autoClose={true}
-            backgroundColor= 'transparent'
+                right={swipeButtons}
+                autoClose={true}
+                backgroundColor='transparent'
             >
                 <View>
                     <CardSection>
@@ -66,4 +61,4 @@ const mapStateToProps = (state) => {
     return { shoppingFoods };
 }
 
-export default connect(mapStateToProps, {shoppingFoodDelete})(ListShoppingItem);
+export default connect(mapStateToProps, { shoppingFoodDelete })(ListShoppingItem);
