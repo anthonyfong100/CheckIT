@@ -129,9 +129,55 @@ class RecipeScreen extends Component {
                 })
                 this.setState({ loading: false })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log("error 1")
+                this.backupAPICALL()
+            }
+            )
     }
 
+    backupAPICALL() {
+        const req =
+            'https://us-central1-checkit-6682c.cloudfunctions.net/recipe_generation?expiryIngredients=["EGGS","HAM","BACON","HONEY"]&otherIngredients=["BARLEY","SUGAR","LEMON","CERAL"]'
+
+        console.log(req)
+        axios.get(req)
+            .then(res => {
+                resultRemoveBracket = res.data
+                // for ( var i = 0; resultRemoveBracket )
+                resultNewApos = resultRemoveBracket.replace(/'/g, '"')
+                console.log(resultNewApos)
+                resultString = JSON.parse(resultNewApos)
+
+
+                recipeLoad = []
+
+                for (var i = 0; i < 10; i++) {
+                    var ingredientArray = []
+                    for (var j in resultString[1][i][1]["Ingredients"]) {
+                        ingredientArray.push(resultString[1][i][1]["Ingredients"][j])
+                    }
+                    var recipeInfo = {
+                        imageSource: resultString[1][i][1]["ImageUrl"],
+                        estimatedTime: resultString[1][i][1]["Time"],
+                        rating: resultString[1][i][1]["Rating"].toFixed(2),
+                        noOfItemUsed: resultString[1][i][2],
+                        ingredients: ingredientArray,
+                        recipeName: resultString[1][i][1]["Name"],
+                        recipeUrl: resultString[1][i][1]["Url"]
+                    }
+                    recipeLoad.push(recipeInfo)
+
+
+                }
+                // console.log(recipeLoad)
+                this.setState({
+                    recipe: recipeLoad
+                })
+                this.setState({ loading: false })
+            })
+            .catch(err => console.log(err))
+    }
 
     render() {
 

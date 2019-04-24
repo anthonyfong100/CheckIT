@@ -90,14 +90,6 @@ class Fridge extends Component {
                         >
                             <Icon name="ios-cloud-upload" style={{ color: '#FFF' }} />
                         </Button>
-                        <Button
-                            light
-                            rounded
-                            success
-                            onPress={() => { this.setState({ modalSetUp: true }) }}
-                        >
-                            <Icon name="ios-information-circle-outline" style={{ color: '#FFF' }} />
-                        </Button>
                     </Right>
                 </Header>
                 <Content style={{ flex: 1, backgroundColor: '#fff', marginTop: 5 }}>
